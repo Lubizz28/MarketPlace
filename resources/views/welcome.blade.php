@@ -25,8 +25,8 @@
             </p>
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3">
-                <a href="#koleksi" class="px-8 py-4 bg-cream-btn text-charcoal-950 font-bold rounded-2xl text-center shadow-lg hover:opacity-95 transition-smooth text-xs uppercase tracking-widest">
-                    Jelajahi Koleksi
+                <a href="{{ route('catalog') }}" class="px-8 py-4 bg-cream-btn text-charcoal-950 font-bold rounded-2xl text-center shadow-lg hover:opacity-95 transition-smooth text-xs uppercase tracking-widest">
+                    Jelajahi Katalog Lengkap
                 </a>
                 <a href="{{ route('register', ['type' => 'reseller']) }}" class="px-8 py-4 bg-white/10 hover:bg-white/15 text-cream-200 font-bold rounded-2xl text-center border border-cream-400/30 transition-smooth text-xs uppercase tracking-widest backdrop-blur-md flex items-center justify-center space-x-2">
                     <span>Gabung Reseller</span>
@@ -45,89 +45,84 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
                 <span class="text-cream-700 text-[10px] uppercase tracking-[0.25em] font-bold">Koleksi Terkurasi</span>
-                <h2 class="text-2xl sm:text-3xl font-display font-bold text-charcoal-950 mt-1">Busana Pilihan Terbaik</h2>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-charcoal-950 mt-1">Kategori Pilihan Terbaik</h2>
             </div>
             <p class="text-xs text-charcoal-500 max-w-md font-light">Karakter bahan adem, tidak terawang, dan dirancang khusus untuk memenuhi standar busana muslim kontemporer.</p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-            <!-- Category 1: Gamis & Abaya -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
-                    <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0-18l4 6-1 12H9L8 9l4-6zM8 9H4l2 6h2m8-6h4l-2 6h-2"/>
-                    </svg>
-                </div>
-                <div>
-                    <h4 class="font-display font-bold text-charcoal-950 text-sm sm:text-base">Gamis &amp; Abaya</h4>
-                    <p class="text-[11px] text-charcoal-500 mt-1 font-light">Silk, Jacquard &amp; Ceruty</p>
-                </div>
-                <div class="pt-1">
-                    <span class="inline-flex items-center space-x-1 text-[10px] font-bold text-cream-800 uppercase tracking-widest group-hover:underline">
-                        <span>Lihat Varian</span>
-                        <svg class="w-3 h-3 text-cream-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Category 2: Hijab & Khimar -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
-                    <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a6 6 0 00-6 6v3c0 4.418 2.686 8 6 8s6-3.582 6-8V9a6 6 0 00-6-6zm0 5a2 2 0 100 4 2 2 0 000-4z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h4 class="font-display font-bold text-charcoal-950 text-sm sm:text-base">Hijab &amp; Khimar</h4>
-                    <p class="text-[11px] text-charcoal-500 mt-1 font-light">Voal Ultrafine &amp; Silk Pashmina</p>
-                </div>
-                <div class="pt-1">
-                    <span class="inline-flex items-center space-x-1 text-[10px] font-bold text-cream-800 uppercase tracking-widest group-hover:underline">
-                        <span>Lihat Varian</span>
-                        <svg class="w-3 h-3 text-cream-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Category 3: Baju Koko & Kurta -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
-                    <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 3l3 2 3-2 3 3-2 3v12H8V9L6 6l3-3zm3 4v6m-1-4h2"/>
-                    </svg>
-                </div>
-                <div>
-                    <h4 class="font-display font-bold text-charcoal-950 text-sm sm:text-base">Baju Koko &amp; Kurta</h4>
-                    <p class="text-[11px] text-charcoal-500 mt-1 font-light">Katun Toyobo &amp; Linen Mewah</p>
-                </div>
-                <div class="pt-1">
-                    <span class="inline-flex items-center space-x-1 text-[10px] font-bold text-cream-800 uppercase tracking-widest group-hover:underline">
-                        <span>Lihat Varian</span>
-                        <svg class="w-3 h-3 text-cream-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Category 4: Mukena Sutra -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
-                    <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3L12 16.1l-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2zM12 18v4m-6-2h12"/>
-                    </svg>
-                </div>
-                <div>
-                    <h4 class="font-display font-bold text-charcoal-950 text-sm sm:text-base">Mukena Sutra</h4>
-                    <p class="text-[11px] text-charcoal-500 mt-1 font-light">Renda Giper &amp; Bordir Halus</p>
-                </div>
-                <div class="pt-1">
-                    <span class="inline-flex items-center space-x-1 text-[10px] font-bold text-cream-800 uppercase tracking-widest group-hover:underline">
-                        <span>Lihat Varian</span>
-                        <svg class="w-3 h-3 text-cream-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
-                    </span>
-                </div>
-            </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+            @foreach($categories as $cat)
+                <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="group glass-card p-6 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 relative overflow-hidden block">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0-18l4 6-1 12H9L8 9l4-6zM8 9H4l2 6h2m8-6h4l-2 6h-2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-display font-bold text-charcoal-950 text-sm truncate">{{ $cat->name }}</h4>
+                        <p class="text-[11px] text-charcoal-500 mt-1 font-light">{{ $cat->products_count ?? 0 }} Produk</p>
+                    </div>
+                    <div class="pt-1">
+                        <span class="inline-flex items-center space-x-1 text-[10px] font-bold text-cream-800 uppercase tracking-widest group-hover:underline">
+                            <span>Lihat Koleksi</span>
+                            <svg class="w-3 h-3 text-cream-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
+                        </span>
+                    </div>
+                </a>
+            @endforeach
         </div>
     </section>
+
+    <!-- Featured Products Spotlight -->
+    @if(isset($featuredProducts) && $featuredProducts->isNotEmpty())
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <span class="text-cream-700 text-[10px] uppercase tracking-[0.25em] font-bold">Sorotan Eksklusif</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-charcoal-950 mt-1">Busana Unggulan Pekan Ini</h2>
+                </div>
+                <a href="{{ route('catalog') }}" class="text-xs font-bold text-cream-800 hover:text-charcoal-950 hover:underline flex items-center space-x-1">
+                    <span>Lihat Semua Produk &rarr;</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                @foreach($featuredProducts as $prod)
+                    <div class="group glass-card rounded-3xl overflow-hidden flex flex-col justify-between hover:border-cream-400 hover:shadow-xl transition-smooth relative">
+                        <div class="relative aspect-3/4 overflow-hidden bg-cream-100/60">
+                            <img src="{{ $prod->thumbnail_url }}" alt="{{ $prod->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
+                            <span class="absolute top-3 left-3 px-3 py-1 bg-charcoal-950/80 backdrop-blur-md text-cream-200 text-[9px] font-bold uppercase tracking-wider rounded-full border border-cream-400/30">
+                                {{ $prod->category->name }}
+                            </span>
+                        </div>
+
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                @if($prod->brand)
+                                    <span class="text-[10px] uppercase tracking-wider text-charcoal-400 font-bold block">{{ $prod->brand->name }}</span>
+                                @endif
+                                <a href="{{ route('product.show', $prod->slug) }}" class="block font-display font-bold text-charcoal-950 text-sm hover:text-cream-800 transition-colors mt-0.5 line-clamp-2 leading-snug">
+                                    {{ $prod->name }}
+                                </a>
+                            </div>
+
+                            <div class="pt-2 border-t border-cream-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[9px] uppercase tracking-wider text-charcoal-400 font-medium block">Mulai dari</span>
+                                    <p class="text-sm sm:text-base font-bold text-charcoal-900 font-mono">
+                                        Rp {{ number_format($prod->getMinPriceFor(auth()->user()?->role?->value ?? 'retail'), 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <a href="{{ route('product.show', $prod->slug) }}" class="w-8 h-8 rounded-xl bg-charcoal-950 hover:bg-charcoal-900 text-cream-200 flex items-center justify-center transition-smooth shadow-xs" title="Lihat Detail">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
 
     <!-- 3 Tier Privileges Section in Frosted Glass -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -160,7 +155,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="#koleksi" class="w-full py-3.5 text-center bg-cream-200/80 hover:bg-cream-300 text-charcoal-900 font-bold rounded-2xl text-xs uppercase tracking-widest transition-smooth">
+                <a href="{{ route('catalog') }}" class="w-full py-3.5 text-center bg-cream-200/80 hover:bg-cream-300 text-charcoal-900 font-bold rounded-2xl text-xs uppercase tracking-widest transition-smooth">
                     Belanja Sekarang
                 </a>
             </div>

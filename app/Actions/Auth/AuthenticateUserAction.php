@@ -36,6 +36,10 @@ class AuthenticateUserAction
 
         Auth::login($user, (bool) ($credentials['remember'] ?? false));
 
+        if ($sessionId = session()->get('cart_session_id')) {
+            app(\App\Services\CartService::class)->migrateGuestCartToUser($sessionId, $user);
+        }
+
         session()->regenerate();
 
         return $user;

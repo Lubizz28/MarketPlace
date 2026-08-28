@@ -104,6 +104,10 @@
                         <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
                         <span>Buku Alamat</span>
                     </a>
+                    <a href="{{ route('member.wishlist.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('member.wishlist.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md border border-cream-400/30' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                        <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"></path></svg>
+                        <span>Wishlist Favorit</span>
+                    </a>
 
                     <div class="border-t border-cream-100 my-2"></div>
                     <form method="POST" action="{{ route('logout') }}">

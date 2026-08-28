@@ -50,13 +50,13 @@
 
                 <!-- Desktop Search Bar in Frosted Glass -->
                 <div class="hidden md:flex flex-1 max-w-md mx-8">
-                    <div class="relative w-full">
-                        <input type="text" placeholder="Cari gamis sutra, abaya bordir, koko eksklusif..."
+                    <form method="GET" action="{{ route('catalog') }}" class="relative w-full">
+                        <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari gamis sutra, abaya bordir, koko eksklusif..."
                             class="w-full bg-cream-100/70 backdrop-blur-md border border-cream-300/90 rounded-full py-2.5 pl-11 pr-4 text-xs tracking-wide placeholder:text-charcoal-400 focus:outline-none focus:ring-2 focus:ring-charcoal-800 focus:bg-white focus:border-transparent transition-smooth shadow-xs">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-charcoal-400">
+                        <button type="submit" class="absolute inset-y-0 left-0 pl-4 flex items-center text-charcoal-400 hover:text-charcoal-800">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
-                        </div>
-                    </div>
+                        </button>
+                    </form>
                 </div>
 
                 <!-- Right Actions -->
@@ -65,6 +65,9 @@
                         <svg class="w-3.5 h-3.5 text-cream-700" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0"></path></svg>
                         <span>Kemitraan Reseller</span>
                     </a>
+
+                    <!-- Livewire Cart Badge -->
+                    <livewire:cart.cart-badge />
 
                     @auth
                         <div class="relative" x-data="{ open: false }">
@@ -141,13 +144,14 @@
 
         <!-- Mobile Drawer Navigation in High-Blur Glass -->
         <div x-show="mobileMenuOpen" x-cloak class="md:hidden border-t border-cream-200 bg-white/95 backdrop-blur-2xl px-5 pt-4 pb-6 space-y-3">
-            <div class="relative mb-3">
-                <input type="text" placeholder="Cari busana syar'i..." class="w-full bg-cream-50 border border-cream-200 rounded-2xl py-2.5 pl-10 pr-4 text-xs focus:outline-none focus:ring-2 focus:ring-charcoal-800">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center text-charcoal-400">
+            <form method="GET" action="{{ route('catalog') }}" class="relative mb-3">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari busana syar'i..." class="w-full bg-cream-50 border border-cream-200 rounded-2xl py-2.5 pl-10 pr-4 text-xs focus:outline-none focus:ring-2 focus:ring-charcoal-800">
+                <button type="submit" class="absolute inset-y-0 left-0 pl-3 flex items-center text-charcoal-400 hover:text-charcoal-800">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
-                </div>
-            </div>
+                </button>
+            </form>
             <a href="{{ route('home') }}" class="block text-xs font-bold uppercase tracking-wider text-charcoal-800 py-2 border-b border-cream-100">Beranda Toko</a>
+            <a href="{{ route('catalog') }}" class="block text-xs font-bold uppercase tracking-wider text-charcoal-800 py-2 border-b border-cream-100">Katalog Lengkap</a>
             <a href="{{ route('register', ['type' => 'reseller']) }}" class="block text-xs font-bold uppercase tracking-wider text-cream-800 py-2 border-b border-cream-100">Program Kemitraan Reseller</a>
         </div>
     </header>
@@ -262,6 +266,9 @@
             </a>
         @endauth
     </nav>
+
+    <!-- Livewire Cart Slide-over Drawer -->
+    <livewire:cart.cart-drawer />
 
     @livewireScripts
 </body>

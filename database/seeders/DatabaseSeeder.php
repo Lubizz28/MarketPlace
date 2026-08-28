@@ -138,5 +138,8 @@ class DatabaseSeeder extends Seeder
             'postal_code' => '40266',
             'is_primary' => true,
         ]);
+
+        // 6. Seed Product Catalog, Categories, Brands, Variants, Multi-Tier Prices, and Inventory
+        $this->call(ProductCatalogSeeder::class);
     }
 }

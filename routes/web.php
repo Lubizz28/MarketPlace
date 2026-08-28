@@ -2,15 +2,28 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Member\AddressController;
 use App\Http\Controllers\Member\MemberDashboardController;
 use App\Http\Controllers\Reseller\ResellerDashboardController;
+use App\Http\Controllers\StorefrontController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-// Public Storefront & Landing
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Public Storefront Routes
+Route::get('/', [StorefrontController::class, 'home'])->name('home');
+Route::get('/catalog', [StorefrontController::class, 'catalog'])->name('catalog');
+Route::get('/category/{slug}', [StorefrontController::class, 'category'])->name('category.show');
+Route::get('/product/{slug}', [StorefrontController::class, 'show'])->name('product.show');
+
+// Cart Routes
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+// Wishlist Public / Member Toggle
+Route::post('/wishlist/toggle/{product}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -32,6 +45,9 @@ Route::middleware(['auth', 'role:member|admin'])
         Route::get('/dashboard', [MemberDashboardController::class, 'index'])->name('dashboard');
         Route::get('/profile', [MemberDashboardController::class, 'profile'])->name('profile');
         Route::put('/profile', [MemberDashboardController::class, 'updateProfile'])->name('profile.update');
+
+        // Wishlist
+        Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 
         // Address Management
         Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
