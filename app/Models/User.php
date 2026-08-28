@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,6 +26,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'role',
+        'status',
+        'avatar',
         'password',
     ];
 
@@ -44,6 +53,80 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
+            'status' => UserStatus::class,
         ];
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function primaryAddress(): HasOne
+    {
+        return $this->hasOne(Address::class)->where('is_primary', true);
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
+    public function isMember(): bool
+    {
+        return $this->role === UserRole::MEMBER;
+    }
+
+    public function isReseller(): bool
+    {
+        return $this->role === UserRole::RESELLER;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === UserStatus::ACTIVE;
+    }
+
+    public function hasRole(string|array|UserRole $roles): bool
+    {
+        if (is_string($roles) && str_contains($roles, '|')) {
+            $roles = explode('|', $roles);
+        }
+
+        $roles = is_array($roles) ? $roles : [$roles];
+
+        foreach ($roles as $r) {
+            $value = $r instanceof UserRole ? $r->value : (string) $r;
+            if ($this->role?->value === $value) {
+                return true;
+            }
+            if ($this->roles->contains('slug', $value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasPermission(string $permissionSlug): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        return $this->roles()
+            ->whereHas('permissions', fn ($q) => $q->where('slug', $permissionSlug))
+            ->exists();
     }
 }
