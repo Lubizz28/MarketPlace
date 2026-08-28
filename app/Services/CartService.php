@@ -28,6 +28,7 @@ class CartService
      */
     public function getCartItems(?User $user = null): Collection
     {
+        $user = $user ?? auth()->user();
         $query = CartItem::with(['variant.product.images', 'variant.prices']);
 
         if ($user) {
@@ -162,6 +163,7 @@ class CartService
 
         return [
             'items' => $items,
+            'cart_items' => $items,
             'subtotal' => $subtotal,
             'formatted_subtotal' => $this->pricingService->formatRupiah($subtotal),
             'total_items' => $totalItems,

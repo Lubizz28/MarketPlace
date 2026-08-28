@@ -33,7 +33,16 @@ class RecordInventoryMovementAction
         ) {
             $lockedVariant = ProductVariant::lockForUpdate()->findOrFail($variant->id);
 
-            $newBalance = $lockedVariant->stock + $quantity;
+            // Determine stock multiplier based on movement type
+            $stockDelta = match ($type) {
+                InventoryMovementType::SALE => -abs($quantity),
+                InventoryMovementType::RETURN,
+                InventoryMovementType::RESTOCK,
+                InventoryMovementType::OPENING => abs($quantity),
+                InventoryMovementType::ADJUSTMENT => $quantity,
+            };
+
+            $newBalance = $lockedVariant->stock + $stockDelta;
 
             if ($newBalance < 0) {
                 throw new InvalidArgumentException("Stok tidak mencukupi untuk varian {$lockedVariant->sku}. Stok saat ini: {$lockedVariant->stock}, diminta: " . abs($quantity));
@@ -45,7 +54,7 @@ class RecordInventoryMovementAction
                 'product_variant_id' => $lockedVariant->id,
                 'user_id' => $userId,
                 'type' => $type,
-                'quantity' => $quantity,
+                'quantity' => abs($quantity),
                 'balance_after' => $newBalance,
                 'reference_type' => $referenceType,
                 'reference_id' => $referenceId,

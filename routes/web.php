@@ -22,6 +22,19 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
+// Checkout Routes
+Route::get('/checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/cities', [\App\Http\Controllers\CheckoutController::class, 'getCities'])->name('checkout.cities');
+Route::post('/checkout/shipping', [\App\Http\Controllers\CheckoutController::class, 'calculateShipping'])->name('checkout.shipping');
+Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
+
+// Order Details & Tracking (Public / Protected with policy)
+Route::get('/orders/{orderNumber}', [\App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
+Route::post('/orders/{orderNumber}/cancel', [\App\Http\Controllers\OrderController::class, 'cancel'])->name('orders.cancel');
+
+// Payment Gateway Webhook (CSRF Exempt)
+Route::post('/webhook/midtrans', [\App\Http\Controllers\PaymentWebhookController::class, 'handle'])->name('webhook.midtrans');
+
 // Wishlist Public / Member Toggle
 Route::post('/wishlist/toggle/{product}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 
@@ -45,6 +58,9 @@ Route::middleware(['auth', 'role:member|admin'])
         Route::get('/dashboard', [MemberDashboardController::class, 'index'])->name('dashboard');
         Route::get('/profile', [MemberDashboardController::class, 'profile'])->name('profile');
         Route::put('/profile', [MemberDashboardController::class, 'updateProfile'])->name('profile.update');
+
+        // Orders History
+        Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'memberOrders'])->name('orders.index');
 
         // Wishlist
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');

@@ -12,7 +12,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            \App\Contracts\ShippingServiceInterface::class,
+            \App\Services\Shipping\RajaOngkirShippingService::class
+        );
+
+        $this->app->bind(
+            \App\Contracts\PaymentGatewayInterface::class,
+            \App\Services\Payment\MidtransPaymentGateway::class
+        );
     }
 
     /**
