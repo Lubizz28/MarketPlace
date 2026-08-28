@@ -1,0 +1,1 @@
+Bangun homepage, catalog, category, search, filter, sorting, product detail, wishlist, cart. Optimalkan query, pagination, image loading, SEO metadata, responsive UI.

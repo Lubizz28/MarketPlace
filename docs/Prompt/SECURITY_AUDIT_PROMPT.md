@@ -1,0 +1,3 @@
+# Security Audit Prompt
+
+Lakukan security audit aplikasi Laravel. Periksa authentication, authorization/IDOR, mass assignment, validation, XSS, CSRF, SQL injection, file upload, rate limiting, session/cookie, secrets, webhook signature, privilege escalation, reseller data isolation, financial calculation tampering, logging, dan production configuration. Buat temuan berdasarkan severity Critical/High/Medium/Low. Perbaiki Critical/High dan tambahkan regression tests.

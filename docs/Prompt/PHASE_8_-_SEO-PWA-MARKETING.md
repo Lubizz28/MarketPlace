@@ -1,0 +1,1 @@
+Implementasikan sitemap, robots, structured data, canonical, OG, PWA manifest/service worker yang ringan, campaign, flash sale, referral/loyalty presentation, analytics hooks.

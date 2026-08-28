@@ -1,0 +1,1 @@
+Audit repository. Pastikan Laravel, PHP, database, frontend build, auth, environment, dan dependency konsisten. Buat ARCHITECTURE.md dan DEVELOPMENT_RULES.md. Jangan membangun fitur bisnis sebelum audit selesai.

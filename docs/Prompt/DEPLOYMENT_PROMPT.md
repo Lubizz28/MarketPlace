@@ -1,0 +1,3 @@
+# Deployment Prompt
+
+Siapkan deployment production Laravel untuk Linux VPS + Nginx + PHP-FPM + MySQL/MariaDB. Buat dokumentasi langkah demi langkah: server prerequisites, environment, database, migrations, storage link, permissions, SSL, queue worker, scheduler/cron, cache optimization, backups, logs, health check, restart/rollback. Pastikan APP_DEBUG=false dan secrets tidak masuk repository. Sertakan checklist smoke test setelah deployment.

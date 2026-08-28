@@ -1,0 +1,1 @@
+Bangun categories, brands, products, variants, images, product prices berdasarkan tipe customer, inventory dan inventory movements. Tambahkan CRUD admin, validation, authorization, indexes, seeders, dan tests.

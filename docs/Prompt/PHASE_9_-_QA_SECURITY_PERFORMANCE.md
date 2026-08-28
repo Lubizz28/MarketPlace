@@ -1,0 +1,1 @@
+Lakukan feature test, authorization test, order/payment/reseller tests, security audit, query audit, N+1 detection, image/performance optimization, responsive QA, accessibility baseline. Perbaiki semua blocker.

@@ -1,0 +1,1 @@
+Bangun address, cart validation, shipping service abstraction, payment gateway abstraction, order lifecycle, payment transaction, invoice, tracking. Pastikan idempotency webhook dan stock consistency.

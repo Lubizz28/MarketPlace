@@ -1,0 +1,3 @@
+# Testing Prompt
+
+Lakukan QA menyeluruh pada aplikasi. Prioritaskan authentication/RBAC, product variant, stock, cart, checkout, payment webhook/idempotency, order lifecycle, refund/cancel, reseller attribution, commission, wallet, withdrawal, voucher, dan admin authorization. Buat Feature/Unit tests untuk business-critical flow. Jangan mock terlalu banyak sampai test kehilangan makna. Jalankan seluruh test suite dan laporkan failure serta perbaikannya.

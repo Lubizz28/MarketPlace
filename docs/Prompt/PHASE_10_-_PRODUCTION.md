@@ -1,0 +1,1 @@
+Siapkan production env example, deployment documentation, migrations/seed strategy, storage, queue worker, scheduler, cron, SSL, backup, cache, logs, health check, rollback procedure, dan final smoke test.
