@@ -75,9 +75,13 @@
                             <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path></svg>
                             <span>Dashboard Utama</span>
                         </a>
-                        <a href="{{ route('admin.users.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.users.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
-                            <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
-                            <span>Kelola Pengguna</span>
+                        <a href="{{ route('admin.orders.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.orders.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                            <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                            <span>Kelola Pesanan</span>
+                        </a>
+                        <a href="{{ route('admin.payments.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.payments.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                            <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6H2.25m0 0v8.25m0-8.25a60.073 60.073 0 0115.797-2.101c.727-.198 1.453.342 1.453 1.096V6m0 0v8.25m0-8.25a60.075 60.075 0 00-15.797 2.101M21 14.25v.75A.75.75 0 0120.25 16h-.75m0 0v2.75M21 6v8.25m-18 0v2.75m0-2.75h18"/></svg>
+                            <span>Log Pembayaran</span>
                         </a>
                         <div class="border-t border-cream-100 my-2"></div>
                     @endif

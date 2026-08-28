@@ -35,6 +35,23 @@ class OrderController extends Controller
     }
 
     /**
+     * Display printable official invoice.
+     */
+    public function invoice(string $orderNumber): View
+    {
+        $order = Order::where('order_number', $orderNumber)
+            ->with(['items.variant.product', 'address', 'shipment', 'payment'])
+            ->firstOrFail();
+
+        // Authorization check: if authenticated and order belongs to another user
+        if (auth()->check() && $order->user_id && $order->user_id !== auth()->id() && !auth()->user()->isAdmin()) {
+            abort(403, 'Anda tidak memiliki akses ke faktur ini.');
+        }
+
+        return view('storefront.orders.invoice', compact('order'));
+    }
+
+    /**
      * Member order history.
      */
     public function memberOrders(): View

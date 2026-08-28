@@ -24,11 +24,20 @@
                 </p>
             </div>
 
-            <div class="text-right sm:text-right">
-                <span class="text-xs uppercase tracking-wider text-charcoal-500 font-bold block">Total Pembayaran</span>
-                <span class="text-2xl sm:text-3xl font-display font-bold text-charcoal-950 font-mono">
-                    {{ $order->formatted_grand_total }}
-                </span>
+            <div class="text-right sm:text-right space-y-2">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-charcoal-500 font-bold block">Total Pembayaran</span>
+                    <span class="text-2xl sm:text-3xl font-display font-bold text-charcoal-950 font-mono">
+                        {{ $order->formatted_grand_total }}
+                    </span>
+                </div>
+                <div>
+                    <a href="{{ route('orders.invoice', $order->order_number) }}" target="_blank"
+                        class="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-cream-100 text-charcoal-900 border border-cream-300 text-[11px] font-bold transition-smooth shadow-xs">
+                        <svg class="w-3.5 h-3.5 text-charcoal-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.75A2.25 2.25 0 0015.75 1.5h-7.5A2.25 2.25 0 006 3.75v3.206"/></svg>
+                        <span>Cetak Faktur</span>
+                    </a>
+                </div>
             </div>
         </div>
 

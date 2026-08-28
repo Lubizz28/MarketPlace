@@ -30,6 +30,7 @@ Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'proc
 
 // Order Details & Tracking (Public / Protected with policy)
 Route::get('/orders/{orderNumber}', [\App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
+Route::get('/orders/{orderNumber}/invoice', [\App\Http\Controllers\OrderController::class, 'invoice'])->name('orders.invoice');
 Route::post('/orders/{orderNumber}/cancel', [\App\Http\Controllers\OrderController::class, 'cancel'])->name('orders.cancel');
 
 // Payment Gateway Webhook (CSRF Exempt)
@@ -87,4 +88,13 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/users', [AdminDashboardController::class, 'users'])->name('users.index');
+
+        // Order Management & Lifecycle
+        Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{orderNumber}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+        Route::post('/orders/{orderNumber}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.status');
+        Route::post('/orders/{orderNumber}/shipment', [\App\Http\Controllers\Admin\OrderController::class, 'fulfillShipment'])->name('orders.shipment');
+
+        // Payment Transactions Audit Log
+        Route::get('/payments', [\App\Http\Controllers\Admin\PaymentTransactionController::class, 'index'])->name('payments.index');
     });
