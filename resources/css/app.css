@@ -11,119 +11,111 @@
     --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* Palette: Obsidian Midnight & Deep Malachite Emerald */
-    --color-slate-950: #080c10;
-    --color-slate-900: #0f1722;
-    --color-slate-800: #1b2636;
-    
-    --color-emerald-950: #061914;
-    --color-emerald-900: #0c2b22;
-    --color-emerald-800: #143d31;
-    --color-emerald-700: #1c5243;
-    --color-emerald-600: #297460;
-    --color-emerald-500: #38977e;
-    --color-emerald-400: #5bbca2;
-    --color-emerald-100: #d6f2e9;
-    --color-emerald-50: #edf9f5;
+    /* Palette: Premium Deep Charcoal / Abu-Abu Gelap */
+    --color-charcoal-950: #0e1014;
+    --color-charcoal-900: #161920;
+    --color-charcoal-850: #1e222b;
+    --color-charcoal-800: #282d39;
+    --color-charcoal-700: #3c4353;
+    --color-charcoal-600: #586175;
+    --color-charcoal-500: #7b859b;
+    --color-charcoal-400: #a3abc0;
+    --color-charcoal-300: #c9d0df;
+    --color-charcoal-200: #e2e6f0;
+    --color-charcoal-100: #f0f2f7;
+    --color-charcoal-50: #f8f9fc;
 
-    /* Metallic Champagne, Imperial Gold & Rose Warmth */
-    --color-gold-950: #3b2c12;
-    --color-gold-900: #584117;
-    --color-gold-800: #7b5b21;
-    --color-gold-700: #a27a2e;
-    --color-gold-600: #c59842;
-    --color-gold-500: #d9ad5c;
-    --color-gold-400: #e8c682;
-    --color-gold-300: #f3dda9;
-    --color-gold-200: #faeed0;
-    --color-gold-100: #fdf7ec;
-    --color-gold-50: #fffdf9;
-
-    /* Silk Alabaster & Cashmere Canvas */
-    --color-sand-950: #141210;
-    --color-sand-900: #201c18;
-    --color-sand-800: #342e28;
-    --color-sand-700: #544c43;
-    --color-sand-600: #776d62;
-    --color-sand-500: #9e9386;
-    --color-sand-400: #c5bbb0;
-    --color-sand-300: #ded7ce;
-    --color-sand-200: #ece7e0;
-    --color-sand-100: #f6f3ee;
-    --color-sand-50: #faf8f5;
+    /* Palette: Luxury Warm Cream / Krem Mewah */
+    --color-cream-950: #292015;
+    --color-cream-900: #3e3223;
+    --color-cream-800: #5a4935;
+    --color-cream-700: #7a644a;
+    --color-cream-600: #9c8365;
+    --color-cream-500: #bfa583;
+    --color-cream-400: #d4c0a3;
+    --color-cream-300: #e5d7c3;
+    --color-cream-200: #f1ebdE;
+    --color-cream-100: #f8f5ee;
+    --color-cream-50: #fcfbf8;
 }
 
-/* Haute Couture Custom Utility Classes */
-.font-display {
-    font-family: var(--font-display);
-}
-
-.font-serif {
-    font-family: var(--font-serif);
+/* Glassmorphism & Frosted Glass Utility Classes */
+.glass-panel {
+    background: rgba(252, 251, 248, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 10px 35px -5px rgba(22, 25, 32, 0.05), 0 2px 8px -2px rgba(22, 25, 32, 0.02);
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(222, 215, 206, 0.6);
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(241, 235, 222, 0.85);
+    box-shadow: 0 12px 36px -6px rgba(22, 25, 32, 0.04), 0 4px 14px -2px rgba(22, 25, 32, 0.02);
 }
 
-.glass-dark-card {
-    background: linear-gradient(145deg, rgba(12, 43, 34, 0.95) 0%, rgba(6, 25, 20, 0.98) 100%);
+.glass-dark {
+    background: linear-gradient(145deg, rgba(30, 34, 43, 0.88) 0%, rgba(14, 16, 20, 0.94) 100%);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(217, 173, 92, 0.22);
+    border: 1px solid rgba(229, 215, 195, 0.18);
+    box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.35);
 }
 
-.shadow-luxury-sm {
-    box-shadow: 0 4px 16px -2px rgba(12, 43, 34, 0.04), 0 2px 6px -1px rgba(12, 43, 34, 0.02);
+.glass-pill {
+    background: rgba(248, 245, 238, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 192, 163, 0.45);
 }
 
-.shadow-luxury {
-    box-shadow: 0 12px 36px -6px rgba(12, 43, 34, 0.07), 0 4px 14px -2px rgba(12, 43, 34, 0.03);
+.glass-bottom-bar {
+    background: rgba(22, 25, 32, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(229, 215, 195, 0.22);
+    box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.4);
 }
 
-.shadow-luxury-lg {
-    box-shadow: 0 24px 54px -12px rgba(12, 43, 34, 0.12), 0 8px 24px -4px rgba(12, 43, 34, 0.05);
-}
-
-.shadow-gold-glow {
-    box-shadow: 0 10px 30px -5px rgba(217, 173, 92, 0.3);
-}
-
-.text-gold-gradient {
-    background: linear-gradient(135deg, #f3dda9 0%, #d9ad5c 50%, #a27a2e 100%);
+/* Gradients & Shadows */
+.text-cream-gradient {
+    background: linear-gradient(135deg, #fcfbf8 0%, #e5d7c3 50%, #bfa583 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.bg-gold-gradient {
-    background: linear-gradient(135deg, #e8c682 0%, #c59842 50%, #a27a2e 100%);
+.bg-charcoal-luxury {
+    background: radial-gradient(circle at 80% 20%, #282d39 0%, #161920 60%, #0e1014 100%);
 }
 
-.bg-emerald-luxury {
-    background: radial-gradient(circle at 85% 15%, #1c5243 0%, #0c2b22 55%, #061914 100%);
+.bg-cream-luxury {
+    background: linear-gradient(135deg, #fcfbf8 0%, #f8f5ee 50%, #f1ebde 100%);
+}
+
+.bg-cream-btn {
+    background: linear-gradient(135deg, #e5d7c3 0%, #c4aa87 50%, #a48b69 100%);
 }
 
 /* Subtle Geometric Star Lattice Pattern */
-.bg-islamic-pattern {
-    background-image: radial-gradient(rgba(217, 173, 92, 0.14) 1px, transparent 0);
+.bg-cream-pattern {
+    background-image: radial-gradient(rgba(191, 165, 131, 0.2) 1px, transparent 0);
     background-size: 28px 28px;
 }
 
-/* Custom Scrollbar for Luxury Aesthetics */
+/* Custom Luxury Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #faf8f5;
+    background: #f8f5ee;
 }
 ::-webkit-scrollbar-thumb {
-    background: #ded7ce;
+    background: #d4c0a3;
     border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #c59842;
+    background: #9c8365;
 }
