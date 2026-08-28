@@ -68,7 +68,7 @@
             <div class="group glass-card rounded-3xl overflow-hidden flex flex-col justify-between hover:border-cream-400 hover:shadow-xl transition-smooth relative">
                 <!-- Thumbnail & Badges -->
                 <div class="relative aspect-3/4 overflow-hidden bg-cream-100/60">
-                    <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
+                    <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
                     
                     <!-- Category Badge -->
                     <span class="absolute top-3 left-3 px-3 py-1 bg-charcoal-950/80 backdrop-blur-md text-cream-200 text-[9px] font-bold uppercase tracking-wider rounded-full border border-cream-400/30">

@@ -90,7 +90,7 @@
                 @foreach($featuredProducts as $prod)
                     <div class="group glass-card rounded-3xl overflow-hidden flex flex-col justify-between hover:border-cream-400 hover:shadow-xl transition-smooth relative">
                         <div class="relative aspect-3/4 overflow-hidden bg-cream-100/60">
-                            <img src="{{ $prod->thumbnail_url }}" alt="{{ $prod->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
+                            <img src="{{ $prod->thumbnail_url }}" alt="{{ $prod->name }}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
                             <span class="absolute top-3 left-3 px-3 py-1 bg-charcoal-950/80 backdrop-blur-md text-cream-200 text-[9px] font-bold uppercase tracking-wider rounded-full border border-cream-400/30">
                                 {{ $prod->category->name }}
                             </span>

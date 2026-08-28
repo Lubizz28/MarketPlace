@@ -5,11 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Primary Meta Tags & SEO Optimization -->
     <title>{{ config('app.name', 'MedinaStyle') }} — @yield('title', 'Koleksi Busana Muslim & Modest Fashion Haute Couture')</title>
+    <meta name="description" content="@yield('meta_description', 'Pusat belanja busana muslim, gamis syari, abaya sutra jacquard, hijab voal, dan koko kurta berstandar butik haute couture dengan harga retail, member, dan reseller.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'gamis syari, abaya modern, hijab voal, baju koko, mukena sutra, busana muslim, modest fashion, medinastyle')">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    <meta name="theme-color" content="#101216">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="MedinaStyle Haute Modestie">
+    <meta property="og:title" content="@yield('title', 'MedinaStyle — Modest Fashion Haute Couture')">
+    <meta property="og:description" content="@yield('meta_description', 'Koleksi busana muslim berstandar butik syari, gamis, abaya, dan hijab mewah.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/og-default.jpg'))">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'MedinaStyle — Modest Fashion Haute Couture')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Koleksi busana muslim berstandar butik syari, gamis, abaya, dan hijab mewah.')">
+    <meta name="twitter:image" content="@yield('og_image', asset('images/og-default.jpg'))">
+
+    <!-- JSON-LD Structured Data Schema -->
+    @yield('schema')
 
     <!-- Professional Global Luxury Fonts: Cinzel + Cormorant Garamond + Plus Jakarta Sans + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

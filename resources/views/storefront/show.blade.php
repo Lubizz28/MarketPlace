@@ -1,6 +1,38 @@
 @extends('layouts.app')
 
 @section('title', $product->name . ' — Koleksi Eksklusif')
+@section('meta_description', Str::limit(strip_tags($product->short_description ?? $product->description), 155))
+@section('meta_keywords', $product->name . ', ' . $product->category->name . ', busana muslim, medinastyle')
+@section('og_type', 'product')
+@section('og_image', $product->thumbnail_url)
+
+@section('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ $product->name }}",
+  "image": [
+    "{{ $product->thumbnail_url }}"
+  ],
+  "description": "{{ Str::limit(strip_tags($product->short_description ?? $product->description), 200) }}",
+  "sku": "{{ $product->sku }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ $product->brand?->name ?? 'MedinaStyle' }}"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "url": "{{ url()->current() }}",
+    "priceCurrency": "IDR",
+    "lowPrice": "{{ $product->getMinPriceFor('retail') }}",
+    "highPrice": "{{ $product->getMaxPriceFor('retail') }}",
+    "offerCount": "{{ $product->variants->count() }}",
+    "availability": "{{ $product->total_stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }}"
+  }
+}
+</script>
+@endsection
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pt-4"
@@ -55,7 +87,7 @@
         <!-- Left: Image Gallery (5 Cols) -->
         <div class="lg:col-span-6 space-y-4">
             <div class="glass-card p-3 rounded-3xl overflow-hidden aspect-3/4 relative bg-cream-100/60 shadow-xl">
-                <img :src="activeImage" alt="{{ $product->name }}" class="w-full h-full object-cover rounded-2xl transition-smooth">
+                <img :src="activeImage" alt="{{ $product->name }}" fetchpriority="high" decoding="async" class="w-full h-full object-cover rounded-2xl transition-smooth">
                 <span class="absolute top-6 left-6 px-3.5 py-1 bg-charcoal-950/80 backdrop-blur-md text-cream-200 text-[10px] font-bold uppercase tracking-wider rounded-full border border-cream-400/30">
                     {{ $product->category->name }}
                 </span>
@@ -68,7 +100,7 @@
                         <button type="button" @click="activeImage = '{{ $img->image_path }}'"
                             :class="activeImage === '{{ $img->image_path }}' ? 'border-charcoal-950 ring-2 ring-charcoal-950/20' : 'border-cream-300 opacity-70 hover:opacity-100'"
                             class="w-16 h-20 rounded-xl overflow-hidden border-2 transition-smooth shrink-0 bg-cream-100">
-                            <img src="{{ $img->image_path }}" alt="Thumbnail" class="w-full h-full object-cover">
+                            <img src="{{ $img->image_path }}" alt="Thumbnail" loading="lazy" decoding="async" class="w-full h-full object-cover">
                         </button>
                     @endforeach
                 </div>

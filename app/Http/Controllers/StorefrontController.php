@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Services\PricingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class StorefrontController extends Controller
@@ -20,17 +21,32 @@ class StorefrontController extends Controller
      */
     public function home(): View
     {
-        $categories = Category::roots()->active()->withCount('products')->get();
-        $brands = Brand::active()->take(6)->get();
+        $categories = Cache::remember('storefront_home_categories', 1800, function () {
+            return Category::roots()->active()->withCount('products')->get();
+        });
+
+        $brands = Cache::remember('storefront_home_brands', 1800, function () {
+            return Brand::active()->take(6)->get();
+        });
 
         $featuredProducts = Product::featured()
-            ->with(['category', 'brand', 'primaryImage', 'variants.prices'])
+            ->with([
+                'category:id,name,slug',
+                'brand:id,name,slug',
+                'primaryImage',
+                'variants.prices',
+            ])
             ->latest()
             ->take(8)
             ->get();
 
         $newArrivals = Product::active()
-            ->with(['category', 'brand', 'primaryImage', 'variants.prices'])
+            ->with([
+                'category:id,name,slug',
+                'brand:id,name,slug',
+                'primaryImage',
+                'variants.prices',
+            ])
             ->latest()
             ->take(8)
             ->get();
@@ -43,11 +59,21 @@ class StorefrontController extends Controller
      */
     public function catalog(Request $request): View
     {
-        $categories = Category::roots()->active()->with('children')->get();
-        $brands = Brand::active()->get();
+        $categories = Cache::remember('storefront_catalog_categories', 1800, function () {
+            return Category::roots()->active()->with('children')->get();
+        });
+
+        $brands = Cache::remember('storefront_catalog_brands', 1800, function () {
+            return Brand::active()->get();
+        });
 
         $query = Product::active()
-            ->with(['category', 'brand', 'primaryImage', 'variants.prices']);
+            ->with([
+                'category:id,name,slug',
+                'brand:id,name,slug',
+                'primaryImage',
+                'variants.prices',
+            ]);
 
         // Search query
         if ($request->filled('q')) {
@@ -87,10 +113,15 @@ class StorefrontController extends Controller
     public function category(string $slug): View
     {
         $category = Category::where('slug', $slug)->where('is_active', true)->firstOrFail();
-        
+
         $products = Product::active()
             ->filterByCategory($slug)
-            ->with(['category', 'brand', 'primaryImage', 'variants.prices'])
+            ->with([
+                'category:id,name,slug',
+                'brand:id,name,slug',
+                'primaryImage',
+                'variants.prices',
+            ])
             ->latest()
             ->paginate(12);
 
@@ -107,8 +138,8 @@ class StorefrontController extends Controller
         $product = Product::active()
             ->where('slug', $slug)
             ->with([
-                'category',
-                'brand',
+                'category:id,name,slug',
+                'brand:id,name,slug',
                 'images',
                 'variants' => fn ($q) => $q->where('is_active', true)->with('prices'),
             ])
@@ -120,7 +151,12 @@ class StorefrontController extends Controller
         $relatedProducts = Product::active()
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
-            ->with(['category', 'brand', 'primaryImage', 'variants.prices'])
+            ->with([
+                'category:id,name,slug',
+                'brand:id,name,slug',
+                'primaryImage',
+                'variants.prices',
+            ])
             ->take(4)
             ->get();
 
