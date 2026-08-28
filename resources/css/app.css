@@ -6,38 +6,93 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-serif: 'Playfair Display', Georgia, serif;
-    
-    --color-brand-50: #f0fdf4;
-    --color-brand-100: #dcfce7;
-    --color-brand-200: #bbf7d0;
-    --color-brand-300: #86efac;
-    --color-brand-400: #4ade80;
-    --color-brand-500: #22c55e;
-    --color-brand-600: #16a34a;
-    --color-brand-700: #15803d;
-    --color-brand-800: #166534;
-    --color-brand-900: #14532d;
-    --color-brand-950: #052e16;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
 
-    --color-gold-400: #fbbf24;
-    --color-gold-500: #f59e0b;
-    --color-gold-600: #d97706;
+    /* Deep Royal Pine & Emerald Palette */
+    --color-emerald-950: #081d17;
+    --color-emerald-900: #0d2d24;
+    --color-emerald-800: #134235;
+    --color-emerald-700: #1b5948;
+    --color-emerald-600: #23745f;
+    --color-emerald-500: #2f947a;
+    --color-emerald-400: #48b497;
+    --color-emerald-100: #d7f1e9;
+    --color-emerald-50: #edf8f5;
 
-    --color-warm-50: #fafaf9;
-    --color-warm-100: #f5f5f4;
-    --color-warm-200: #e7e5e4;
-    --color-warm-300: #d6d3d1;
-    --color-warm-800: #292524;
-    --color-warm-900: #1c1917;
+    /* Champagne & Antique Luxury Gold */
+    --color-gold-900: #57411c;
+    --color-gold-800: #7b5d27;
+    --color-gold-700: #a47d35;
+    --color-gold-600: #c59b4c;
+    --color-gold-500: #d8b168;
+    --color-gold-400: #e7c788;
+    --color-gold-300: #f2dcaf;
+    --color-gold-200: #faeed7;
+    --color-gold-100: #fdf7ec;
+    --color-gold-50: #fffdf9;
+
+    /* Silk Warm Ivory & Cashmere Neutral */
+    --color-sand-950: #151311;
+    --color-sand-900: #201c18;
+    --color-sand-800: #35302b;
+    --color-sand-700: #554e47;
+    --color-sand-600: #797168;
+    --color-sand-500: #a0978d;
+    --color-sand-400: #c6beb5;
+    --color-sand-300: #dfd9d2;
+    --color-sand-200: #ece7e1;
+    --color-sand-100: #f5f2ed;
+    --color-sand-50: #faf8f5;
 }
 
-/* Base Utilities */
-.shadow-soft {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+/* Luxury Glassmorphism & Shadow Utilities */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-.shadow-card {
-    box-shadow: 0 10px 30px -4px rgba(22, 101, 52, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+.glass-dark {
+    background: rgba(13, 45, 36, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(216, 177, 104, 0.18);
+}
+
+.shadow-luxury {
+    box-shadow: 0 10px 30px -5px rgba(13, 45, 36, 0.06), 0 4px 12px -2px rgba(13, 45, 36, 0.03);
+}
+
+.shadow-luxury-lg {
+    box-shadow: 0 20px 45px -10px rgba(13, 45, 36, 0.12), 0 8px 20px -4px rgba(13, 45, 36, 0.05);
+}
+
+.shadow-gold {
+    box-shadow: 0 8px 25px -4px rgba(216, 177, 104, 0.35);
+}
+
+.text-gold-gradient {
+    background: linear-gradient(135deg, #f2dcaf 0%, #d8b168 50%, #a47d35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+    background: linear-gradient(135deg, #e7c788 0%, #c59b4c 50%, #a47d35 100%);
+}
+
+.bg-emerald-luxury {
+    background: radial-gradient(circle at 80% 20%, #1b5948 0%, #0d2d24 60%, #081d17 100%);
+}
+
+.border-gold-subtle {
+    border-color: rgba(216, 177, 104, 0.25);
+}
+
+/* Subtle Islamic Star Lattice SVG Pattern */
+.bg-islamic-pattern {
+    background-image: radial-gradient(rgba(216, 177, 104, 0.12) 1px, transparent 0);
+    background-size: 24px 24px;
 }

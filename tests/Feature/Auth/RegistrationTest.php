@@ -17,7 +17,7 @@ class RegistrationTest extends TestCase
         $response = $this->get('/register');
 
         $response->assertStatus(200);
-        $response->assertSee('Bergabung Bersama Kami');
+        $response->assertSee('Bergabung Bersama MedinaStyle');
     }
 
     public function test_new_members_can_register(): void
