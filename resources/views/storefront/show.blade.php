@@ -9,8 +9,8 @@
 @section('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org/",
-  "@type": "Product",
+  "@@context": "https://schema.org/",
+  "@@type": "Product",
   "name": "{{ $product->name }}",
   "image": [
     "{{ $product->thumbnail_url }}"
@@ -18,11 +18,11 @@
   "description": "{{ Str::limit(strip_tags($product->short_description ?? $product->description), 200) }}",
   "sku": "{{ $product->sku }}",
   "brand": {
-    "@type": "Brand",
+    "@@type": "Brand",
     "name": "{{ $product->brand?->name ?? 'MedinaStyle' }}"
   },
   "offers": {
-    "@type": "AggregateOffer",
+    "@@type": "AggregateOffer",
     "url": "{{ url()->current() }}",
     "priceCurrency": "IDR",
     "lowPrice": "{{ $product->getMinPriceFor('retail') }}",
@@ -122,21 +122,17 @@
             <!-- Multi-Tier Pricing Display Card in Frosted Glass -->
             <div class="glass-card p-6 rounded-3xl space-y-3 border-2 border-cream-300 shadow-md">
                 <div class="flex items-baseline space-x-3">
-                    @auth
-                        @if(auth()->user()->isReseller())
-                            <span class="text-3xl font-display font-bold text-charcoal-950 font-mono" x-text="formatRupiah(resellerPrice)"></span>
-                            <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-emerald-100 text-emerald-950 rounded-full">Harga Grosir Reseller</span>
-                            <span class="text-xs text-charcoal-400 line-through font-mono" x-text="formatRupiah(retailPrice)"></span>
-                        @elseif(auth()->user()->isMember())
-                            <span class="text-3xl font-display font-bold text-charcoal-950 font-mono" x-text="formatRupiah(memberPrice)"></span>
-                            <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-cream-200 text-charcoal-900 rounded-full">Harga Spesial Member</span>
-                            <span class="text-xs text-charcoal-400 line-through font-mono" x-text="formatRupiah(retailPrice)"></span>
-                        @else
-                            <span class="text-3xl font-display font-bold text-charcoal-950 font-mono" x-text="formatRupiah(retailPrice)"></span>
-                        @endif
+                    @if(auth()->check() && auth()->user()->isReseller())
+                        <span class="text-3xl font-display font-bold text-charcoal-950 font-mono" x-text="formatRupiah(resellerPrice)"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-emerald-100 text-emerald-950 rounded-full">Harga Grosir Reseller</span>
+                        <span class="text-xs text-charcoal-400 line-through font-mono" x-text="formatRupiah(retailPrice)"></span>
+                    @elseif(auth()->check() && auth()->user()->isMember())
+                        <span class="text-3xl font-display font-bold text-charcoal-950 font-mono" x-text="formatRupiah(memberPrice)"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 bg-cream-200 text-charcoal-900 rounded-full">Harga Spesial Member</span>
+                        <span class="text-xs text-charcoal-400 line-through font-mono" x-text="formatRupiah(retailPrice)"></span>
                     @else
                         <span class="text-3xl font-display font-bold text-charcoal-950 font-mono" x-text="formatRupiah(retailPrice)"></span>
-                    @endauth
+                    @endif
                 </div>
 
                 <!-- Privilege Incentive Prompt for Guests -->
@@ -237,7 +233,7 @@
                 @foreach($relatedProducts as $rel)
                     <div class="glass-card p-4 rounded-3xl space-y-3 hover:border-cream-400 transition-smooth group">
                         <div class="aspect-3/4 rounded-2xl overflow-hidden bg-cream-100">
-                            <img src="{{ $rel->thumbnail_url }}" alt="{{ $rel->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
+                            <img src="{{ $rel->thumbnail_url }}" alt="{{ $rel->name }}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-smooth">
                         </div>
                         <h4 class="font-display font-bold text-xs text-charcoal-950 truncate">{{ $rel->name }}</h4>
                         <p class="text-xs font-mono font-bold text-charcoal-900">Rp {{ number_format($rel->getMinPriceFor('retail'), 0, ',', '.') }}</p>
