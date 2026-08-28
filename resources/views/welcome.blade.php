@@ -4,13 +4,13 @@
 
 @section('content')
 <div class="space-y-16 sm:space-y-24">
-    <!-- Hero Haute Couture Banner in Deep Charcoal with Cream & Glass Accents -->
+    <!-- Hero Haute Couture Banner in Velvet Charcoal with Cream Specular Glow -->
     <section class="relative bg-charcoal-luxury text-white rounded-[2.5rem] mx-4 sm:mx-6 lg:mx-8 px-6 sm:px-14 py-16 sm:py-28 shadow-2xl overflow-hidden border border-cream-400/20">
-        <!-- Subtle Arabesque Background Pattern -->
-        <div class="absolute inset-0 bg-cream-pattern opacity-25 pointer-events-none"></div>
+        <!-- Subtle Natural Linen Lattice Pattern -->
+        <div class="absolute inset-0 bg-cream-pattern opacity-20 pointer-events-none"></div>
 
         <div class="relative z-10 max-w-3xl space-y-7">
-            <div class="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-white/10 border border-cream-400/30 text-cream-300 text-xs font-semibold backdrop-blur-md shadow-xs">
+            <div class="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-white/10 border border-cream-300/30 text-cream-300 text-xs font-medium backdrop-blur-md shadow-xs">
                 <svg class="w-3.5 h-3.5 text-cream-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
                 <span class="tracking-[0.2em] uppercase text-[10px] sm:text-xs">Edisi Mahakarya 2026</span>
                 <svg class="w-3.5 h-3.5 text-cream-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
@@ -25,10 +25,10 @@
             </p>
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3">
-                <a href="#koleksi" class="px-8 py-4 bg-cream-btn text-charcoal-950 font-bold rounded-2xl text-center shadow-lg hover:opacity-95 transition-all text-xs uppercase tracking-widest">
+                <a href="#koleksi" class="px-8 py-4 bg-cream-btn text-charcoal-950 font-bold rounded-2xl text-center shadow-lg hover:opacity-95 transition-smooth text-xs uppercase tracking-widest">
                     Jelajahi Koleksi
                 </a>
-                <a href="{{ route('register', ['type' => 'reseller']) }}" class="px-8 py-4 bg-white/10 hover:bg-white/15 text-cream-200 font-bold rounded-2xl text-center border border-cream-400/30 transition-all text-xs uppercase tracking-widest backdrop-blur-md flex items-center justify-center space-x-2">
+                <a href="{{ route('register', ['type' => 'reseller']) }}" class="px-8 py-4 bg-white/10 hover:bg-white/15 text-cream-200 font-bold rounded-2xl text-center border border-cream-400/30 transition-smooth text-xs uppercase tracking-widest backdrop-blur-md flex items-center justify-center space-x-2">
                     <span>Gabung Reseller</span>
                     <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path></svg>
                 </a>
@@ -40,7 +40,7 @@
         <div class="absolute right-12 bottom-0 w-80 h-80 rounded-full bg-charcoal-700/30 blur-[110px] pointer-events-none"></div>
     </section>
 
-    <!-- Curated Categories Grid in Frosted Cream Glass -->
+    <!-- Curated Categories Grid in Frosted Cream Glass Cards -->
     <section id="koleksi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -52,8 +52,8 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             <!-- Category 1: Gamis & Abaya -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-500/60 hover:shadow-xl transition-all text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-all shadow-xs">
+            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
                     <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0-18l4 6-1 12H9L8 9l4-6zM8 9H4l2 6h2m8-6h4l-2 6h-2"/>
                     </svg>
@@ -71,8 +71,8 @@
             </div>
 
             <!-- Category 2: Hijab & Khimar -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-500/60 hover:shadow-xl transition-all text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-all shadow-xs">
+            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
                     <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a6 6 0 00-6 6v3c0 4.418 2.686 8 6 8s6-3.582 6-8V9a6 6 0 00-6-6zm0 5a2 2 0 100 4 2 2 0 000-4z"/>
                     </svg>
@@ -90,8 +90,8 @@
             </div>
 
             <!-- Category 3: Baju Koko & Kurta -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-500/60 hover:shadow-xl transition-all text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-all shadow-xs">
+            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
                     <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 3l3 2 3-2 3 3-2 3v12H8V9L6 6l3-3zm3 4v6m-1-4h2"/>
                     </svg>
@@ -109,8 +109,8 @@
             </div>
 
             <!-- Category 4: Mukena Sutra -->
-            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-500/60 hover:shadow-xl transition-all text-center space-y-4 cursor-pointer relative overflow-hidden">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-all shadow-xs">
+            <div class="group glass-card p-6 sm:p-8 rounded-3xl hover:border-cream-400 hover:shadow-xl transition-smooth text-center space-y-4 cursor-pointer relative overflow-hidden">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 group-hover:scale-110 group-hover:bg-charcoal-950 group-hover:text-cream-300 transition-smooth shadow-xs">
                     <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3L12 16.1l-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2zM12 18v4m-6-2h12"/>
                     </svg>
@@ -160,7 +160,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="#koleksi" class="w-full py-3.5 text-center bg-cream-200/80 hover:bg-cream-300 text-charcoal-900 font-bold rounded-2xl text-xs uppercase tracking-widest transition-colors">
+                <a href="#koleksi" class="w-full py-3.5 text-center bg-cream-200/80 hover:bg-cream-300 text-charcoal-900 font-bold rounded-2xl text-xs uppercase tracking-widest transition-smooth">
                     Belanja Sekarang
                 </a>
             </div>
@@ -191,7 +191,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="{{ route('register') }}" class="w-full py-3.5 text-center bg-charcoal-950 hover:bg-charcoal-900 text-cream-200 font-bold rounded-2xl text-xs uppercase tracking-widest shadow-xl border border-cream-400/40 transition-all">
+                <a href="{{ route('register') }}" class="w-full py-3.5 text-center bg-charcoal-950 hover:bg-charcoal-900 text-cream-200 font-bold rounded-2xl text-xs uppercase tracking-widest shadow-xl border border-cream-400/40 transition-smooth">
                     Daftar Member Gratis
                 </a>
             </div>
@@ -219,7 +219,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="{{ route('register', ['type' => 'reseller']) }}" class="w-full py-3.5 text-center bg-cream-btn text-charcoal-950 font-bold rounded-2xl text-xs uppercase tracking-widest shadow-lg hover:opacity-95 transition-all">
+                <a href="{{ route('register', ['type' => 'reseller']) }}" class="w-full py-3.5 text-center bg-cream-btn text-charcoal-950 font-bold rounded-2xl text-xs uppercase tracking-widest shadow-lg hover:opacity-95 transition-smooth">
                     Gabung Mitra Reseller
                 </a>
             </div>
@@ -230,7 +230,7 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="glass-card rounded-[2.5rem] p-8 sm:p-14 border border-cream-200/90 shadow-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
                 </div>
                 <div class="space-y-1">
@@ -240,7 +240,7 @@
             </div>
 
             <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
                 </div>
                 <div class="space-y-1">
@@ -250,7 +250,7 @@
             </div>
 
             <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.948c0-.621-.504-1.125-1.125-1.125H4.125C3.504 5.5 3 6.004 3 6.625v8.25c0 .621.504 1.125 1.125 1.125h1.5"/></svg>
                 </div>
                 <div class="space-y-1">
@@ -260,7 +260,7 @@
             </div>
 
             <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-400/30 flex items-center justify-center text-charcoal-900 shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-charcoal-950/5 border border-cream-300 flex items-center justify-center text-charcoal-900 shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3.84-3.091c-.422-.016-.84-.038-1.258-.066a9.92 9.92 0 01-3.652-.962m10.25-7.528A9.972 9.972 0 0012 5.25c-5.523 0-10 4.477-10 10 0 1.688.42 3.278 1.16 4.673l-1.16 4.327 4.545-1.136A9.957 9.957 0 0012 25.25c5.523 0 10-4.477 10-10 0-1.848-.5-3.578-1.375-5.064"/></svg>
                 </div>
                 <div class="space-y-1">
