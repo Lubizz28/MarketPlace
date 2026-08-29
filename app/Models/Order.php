@@ -20,9 +20,14 @@ class Order extends Model
         'user_id',
         'customer_type',
         'reseller_id',
+        'coupon_id',
+        'coupon_code',
         'status',
         'payment_status',
         'subtotal',
+        'coupon_discount',
+        'points_redeemed',
+        'points_discount',
         'discount_amount',
         'shipping_cost',
         'grand_total',
@@ -44,6 +49,9 @@ class Order extends Model
             'payment_status' => PaymentStatus::class,
             'customer_type' => CustomerType::class,
             'subtotal' => 'integer',
+            'coupon_discount' => 'integer',
+            'points_redeemed' => 'integer',
+            'points_discount' => 'integer',
             'discount_amount' => 'integer',
             'shipping_cost' => 'integer',
             'grand_total' => 'integer',
@@ -53,6 +61,21 @@ class Order extends Model
             'completed_at' => 'datetime',
             'cancelled_at' => 'datetime',
         ];
+    }
+
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    public function couponUsage(): HasOne
+    {
+        return $this->hasOne(CouponUsage::class);
+    }
+
+    public function pointTransactions(): HasMany
+    {
+        return $this->hasMany(PointTransaction::class);
     }
 
     public function user(): BelongsTo
@@ -103,6 +126,21 @@ class Order extends Model
     public function getFormattedShippingCostAttribute(): string
     {
         return 'Rp ' . number_format($this->shipping_cost, 0, ',', '.');
+    }
+
+    public function getFormattedCouponDiscountAttribute(): string
+    {
+        return 'Rp ' . number_format($this->coupon_discount, 0, ',', '.');
+    }
+
+    public function getFormattedPointsDiscountAttribute(): string
+    {
+        return 'Rp ' . number_format($this->points_discount, 0, ',', '.');
+    }
+
+    public function getFormattedDiscountAmountAttribute(): string
+    {
+        return 'Rp ' . number_format($this->discount_amount, 0, ',', '.');
     }
 
     public function isPendingPayment(): bool

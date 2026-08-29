@@ -8,17 +8,19 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
+use App\Services\LoyaltyPointService;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
 class UpdateOrderStatusAction
 {
     public function __construct(
-        protected RecordInventoryMovementAction $recordInventoryMovementAction
+        protected RecordInventoryMovementAction $recordInventoryMovementAction,
+        protected LoyaltyPointService $loyaltyPointService
     ) {}
 
     /**
-     * Transition order to a new status with validation and inventory side effects.
+     * Transition order to a new status with validation and inventory & point side effects.
      */
     public function execute(Order $order, OrderStatus $targetStatus, ?User $actor = null, ?string $reason = null): Order
     {
@@ -83,6 +85,9 @@ class UpdateOrderStatusAction
                             'delivered_at' => $lockedOrder->shipment->delivered_at ?? now(),
                         ]);
                     }
+
+                    // Award loyalty points to member
+                    $this->loyaltyPointService->earnPointsForOrder($lockedOrder);
                     break;
 
                 case OrderStatus::CANCELLED:
@@ -108,6 +113,9 @@ class UpdateOrderStatusAction
                             );
                         }
                     }
+
+                    // Refund redeemed points
+                    $this->loyaltyPointService->refundPointsForOrder($lockedOrder);
                     break;
 
                 case OrderStatus::REFUNDED:
@@ -130,12 +138,15 @@ class UpdateOrderStatusAction
                             );
                         }
                     }
+
+                    // Refund / Reverse points
+                    $this->loyaltyPointService->refundPointsForOrder($lockedOrder);
                     break;
             }
 
             $lockedOrder->update($updateData);
 
-            return $lockedOrder->fresh(['items.variant', 'payment', 'shipment', 'address']);
+            return $lockedOrder->fresh(['items.variant', 'payment', 'shipment', 'address', 'pointTransactions']);
         });
     }
 

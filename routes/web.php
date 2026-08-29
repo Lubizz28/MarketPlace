@@ -26,6 +26,8 @@ Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remov
 Route::get('/checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout/cities', [\App\Http\Controllers\CheckoutController::class, 'getCities'])->name('checkout.cities');
 Route::post('/checkout/shipping', [\App\Http\Controllers\CheckoutController::class, 'calculateShipping'])->name('checkout.shipping');
+Route::post('/checkout/coupon/validate', [\App\Http\Controllers\CheckoutController::class, 'validateCoupon'])->name('checkout.coupon.validate');
+Route::post('/checkout/points/calculate', [\App\Http\Controllers\CheckoutController::class, 'calculatePoints'])->name('checkout.points.calculate');
 Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
 
 // Order Details & Tracking (Public / Protected with policy)
@@ -66,6 +68,10 @@ Route::middleware(['auth', 'role:member|admin'])
         // Wishlist
         Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 
+        // Loyalty Points & Coupons
+        Route::get('/points', [MemberDashboardController::class, 'points'])->name('points.index');
+        Route::get('/coupons', [MemberDashboardController::class, 'coupons'])->name('coupons.index');
+
         // Address Management
         Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
         Route::post('/addresses', [AddressController::class, 'store'])->name('addresses.store');
@@ -94,6 +100,14 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/orders/{orderNumber}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
         Route::post('/orders/{orderNumber}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.status');
         Route::post('/orders/{orderNumber}/shipment', [\App\Http\Controllers\Admin\OrderController::class, 'fulfillShipment'])->name('orders.shipment');
+
+        // Coupon & Promotion Management
+        Route::resource('/coupons', \App\Http\Controllers\Admin\CouponController::class)->except(['show']);
+        Route::post('/coupons/{coupon}/toggle', [\App\Http\Controllers\Admin\CouponController::class, 'toggle'])->name('coupons.toggle');
+
+        // Loyalty Points Audit & Adjustments
+        Route::get('/points', [\App\Http\Controllers\Admin\PointTransactionController::class, 'index'])->name('points.index');
+        Route::post('/points/adjust', [\App\Http\Controllers\Admin\PointTransactionController::class, 'adjust'])->name('points.adjust');
 
         // Payment Transactions Audit Log
         Route::get('/payments', [\App\Http\Controllers\Admin\PaymentTransactionController::class, 'index'])->name('payments.index');

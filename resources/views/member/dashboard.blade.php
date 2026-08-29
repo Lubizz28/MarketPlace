@@ -21,40 +21,40 @@
 
     <!-- Quick Stats Grid in Frosted Glass -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5">
-        <div class="glass-card p-5 sm:p-6 rounded-3xl">
+        <a href="{{ route('member.orders.index') }}" class="glass-card p-5 sm:p-6 rounded-3xl hover:border-cream-400 transition-all block">
             <div class="flex items-center justify-between">
                 <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-charcoal-400">Total Pesanan</span>
                 <div class="w-8 h-8 rounded-xl bg-cream-100 flex items-center justify-center text-charcoal-700">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
                 </div>
             </div>
-            <p class="text-2xl font-display font-bold text-charcoal-950 mt-2">0</p>
-            <span class="text-[11px] text-charcoal-400 font-light">Riwayat belanja Anda</span>
-        </div>
+            <p class="text-2xl font-display font-bold text-charcoal-950 mt-2">{{ $totalOrdersCount ?? 0 }}</p>
+            <span class="text-[11px] text-charcoal-400 font-light">Lihat pesanan &rarr;</span>
+        </a>
 
-        <div class="glass-card p-5 sm:p-6 rounded-3xl border-2 border-cream-400/80 shadow-lg">
+        <a href="{{ route('member.points.index') }}" class="glass-card p-5 sm:p-6 rounded-3xl border-2 border-cream-400/80 shadow-lg hover:border-cream-500 transition-all block">
             <div class="flex items-center justify-between">
                 <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-cream-700">Poin Loyalitas</span>
                 <div class="w-8 h-8 rounded-xl bg-cream-100 border border-cream-300 flex items-center justify-center text-cream-800">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 </div>
             </div>
-            <p class="text-2xl font-display font-bold text-cream-800 mt-2">0 Poin</p>
-            <span class="text-[11px] text-cream-800/80 font-light">Tukar saat checkout</span>
-        </div>
+            <p class="text-2xl font-display font-bold text-cream-800 mt-2">{{ number_format($user->loyalty_points, 0, ',', '.') }} <span class="text-xs">Poin</span></p>
+            <span class="text-[11px] text-cream-800/80 font-light">Buka rincian &rarr;</span>
+        </a>
 
-        <div class="glass-card p-5 sm:p-6 rounded-3xl">
+        <a href="{{ route('member.coupons.index') }}" class="glass-card p-5 sm:p-6 rounded-3xl hover:border-cream-400 transition-all block">
             <div class="flex items-center justify-between">
                 <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-charcoal-400">Kupon Aktif</span>
                 <div class="w-8 h-8 rounded-xl bg-cream-100 flex items-center justify-center text-charcoal-700">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
                 </div>
             </div>
-            <p class="text-2xl font-display font-bold text-charcoal-950 mt-2">0 Kupon</p>
-            <span class="text-[11px] text-charcoal-400 font-light">Diskon khusus member</span>
-        </div>
+            <p class="text-2xl font-display font-bold text-charcoal-950 mt-2">{{ $activeCouponsCount ?? 0 }} <span class="text-xs">Kupon</span></p>
+            <span class="text-[11px] text-charcoal-400 font-light">Klaim voucher &rarr;</span>
+        </a>
 
-        <div class="glass-card p-5 sm:p-6 rounded-3xl">
+        <a href="{{ route('member.addresses.index') }}" class="glass-card p-5 sm:p-6 rounded-3xl hover:border-cream-400 transition-all block">
             <div class="flex items-center justify-between">
                 <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-charcoal-400">Buku Alamat</span>
                 <div class="w-8 h-8 rounded-xl bg-cream-100 flex items-center justify-center text-charcoal-700">
@@ -63,7 +63,7 @@
             </div>
             <p class="text-2xl font-display font-bold text-charcoal-950 mt-2">{{ $user->addresses->count() }}</p>
             <span class="text-[11px] text-charcoal-400 font-light">Tujuan tersimpan</span>
-        </div>
+        </a>
     </div>
 
     <!-- Profile & Primary Address Summary in Frosted Glass -->

@@ -79,6 +79,14 @@
                             <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
                             <span>Kelola Pesanan</span>
                         </a>
+                        <a href="{{ route('admin.coupons.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.coupons.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                            <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l6-6m4.5-3.75l-15 15a2.25 2.25 0 003.182 3.182l15-15a2.25 2.25 0 00-3.182-3.182z"/></svg>
+                            <span>Kelola Kupon Promo</span>
+                        </a>
+                        <a href="{{ route('admin.points.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.points.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                            <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <span>Log Poin Loyalitas</span>
+                        </a>
                         <a href="{{ route('admin.payments.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('admin.payments.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
                             <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6H2.25m0 0v8.25m0-8.25a60.073 60.073 0 0115.797-2.101c.727-.198 1.453.342 1.453 1.096V6m0 0v8.25m0-8.25a60.075 60.075 0 00-15.797 2.101M21 14.25v.75A.75.75 0 0120.25 16h-.75m0 0v2.75M21 6v8.25m-18 0v2.75m0-2.75h18"/></svg>
                             <span>Log Pembayaran</span>
@@ -107,6 +115,14 @@
                     <a href="{{ route('member.orders.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('member.orders.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md border border-cream-400/30' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
                         <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
                         <span>Pesanan Saya</span>
+                    </a>
+                    <a href="{{ route('member.points.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('member.points.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md border border-cream-400/30' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                        <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>Poin Loyalitas</span>
+                    </a>
+                    <a href="{{ route('member.coupons.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('member.coupons.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md border border-cream-400/30' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
+                        <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
+                        <span>Kupon &amp; Voucher</span>
                     </a>
                     <a href="{{ route('member.addresses.index') }}" class="flex items-center space-x-2.5 px-3.5 py-3 rounded-2xl transition-all {{ request()->routeIs('member.addresses.*') ? 'bg-charcoal-950 text-cream-300 font-bold shadow-md border border-cream-400/30' : 'text-charcoal-600 hover:bg-cream-100/70' }}">
                         <svg class="w-4 h-4 text-cream-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
@@ -168,13 +184,19 @@
                 <nav class="space-y-1.5 text-xs font-semibold">
                     @if(auth()->user()->isAdmin())
                         <a href="{{ route('admin.dashboard') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-950 font-bold bg-cream-200/80">Admin Dashboard</a>
-                        <a href="{{ route('admin.users.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-600 hover:bg-cream-100">Kelola Pengguna</a>
+                        <a href="{{ route('admin.orders.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Kelola Pesanan</a>
+                        <a href="{{ route('admin.coupons.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Kelola Kupon Promo</a>
+                        <a href="{{ route('admin.points.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Log Poin Loyalitas</a>
+                        <a href="{{ route('admin.payments.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Log Pembayaran</a>
+                        <a href="{{ route('admin.users.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Kelola Pengguna</a>
                     @endif
                     @if(auth()->user()->isReseller())
                         <a href="{{ route('reseller.dashboard') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-950 font-bold bg-cream-200/80">Portal Reseller</a>
                     @endif
                     <a href="{{ route('member.dashboard') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Dashboard Member</a>
-                    <a href="{{ route('member.profile') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Profil Saya</a>
+                    <a href="{{ route('member.points.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Poin Loyalitas</a>
+                    <a href="{{ route('member.coupons.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Kupon &amp; Voucher</a>
+                    <a href="{{ route('member.orders.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Pesanan Saya</a>
                     <a href="{{ route('member.addresses.index') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Buku Alamat</a>
                     <a href="{{ route('home') }}" class="block px-3.5 py-2.5 rounded-xl text-charcoal-700 hover:bg-cream-100">Lihat Toko</a>
                 </nav>

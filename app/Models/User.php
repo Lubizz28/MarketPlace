@@ -29,6 +29,7 @@ class User extends Authenticatable
         'phone',
         'role',
         'status',
+        'loyalty_points',
         'avatar',
         'password',
     ];
@@ -55,12 +56,23 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role' => UserRole::class,
             'status' => UserStatus::class,
+            'loyalty_points' => 'integer',
         ];
     }
 
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function pointTransactions(): HasMany
+    {
+        return $this->hasMany(PointTransaction::class)->latest();
+    }
+
+    public function couponUsages(): HasMany
+    {
+        return $this->hasMany(CouponUsage::class);
     }
 
     public function addresses(): HasMany

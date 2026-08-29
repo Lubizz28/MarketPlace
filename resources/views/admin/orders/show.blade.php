@@ -180,6 +180,24 @@
                     <span>Ongkos Kirim</span>
                     <span class="font-mono font-bold text-charcoal-950">{{ $order->formatted_shipping_cost }}</span>
                 </div>
+                @if($order->coupon_discount > 0)
+                    <div class="flex justify-between text-emerald-700">
+                        <span>Diskon Kupon ({{ $order->coupon_code }})</span>
+                        <span class="font-mono font-bold">- {{ $order->formatted_coupon_discount }}</span>
+                    </div>
+                @endif
+                @if($order->points_discount > 0)
+                    <div class="flex justify-between text-amber-700">
+                        <span>Diskon Poin ({{ $order->points_redeemed }} Poin)</span>
+                        <span class="font-mono font-bold">- {{ $order->formatted_points_discount }}</span>
+                    </div>
+                @endif
+                @if($order->discount_amount > 0 && $order->coupon_discount == 0 && $order->points_discount == 0)
+                    <div class="flex justify-between text-emerald-700">
+                        <span>Diskon Potongan</span>
+                        <span class="font-mono font-bold">- Rp {{ number_format($order->discount_amount, 0, ',', '.') }}</span>
+                    </div>
+                @endif
                 <div class="pt-2 border-t border-cream-300 flex justify-between text-sm font-bold text-charcoal-950">
                     <span>Total Tagihan</span>
                     <span class="font-mono text-base">{{ $order->formatted_grand_total }}</span>

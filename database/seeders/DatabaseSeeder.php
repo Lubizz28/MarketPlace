@@ -140,6 +140,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 6. Seed Product Catalog, Categories, Brands, Variants, Multi-Tier Prices, and Inventory
-        $this->call(ProductCatalogSeeder::class);
+        $this->call([
+            ProductCatalogSeeder::class,
+            CouponSeeder::class,
+        ]);
     }
 }

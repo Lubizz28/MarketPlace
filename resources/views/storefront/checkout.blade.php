@@ -40,8 +40,28 @@
         subtotal: {{ $cartTotals['subtotal'] }},
         totalWeightGrams: {{ max(1000, $cartTotals['total_weight_grams']) }},
 
+        // Coupon state
+        couponInput: '{{ old('coupon_code', '') }}',
+        appliedCouponCode: '{{ old('coupon_code', '') }}',
+        couponDiscount: 0,
+        couponMessage: '',
+        couponError: '',
+        isValidatingCoupon: false,
+
+        // Points state
+        userPointsBalance: {{ $userPoints }},
+        maxRedeemablePoints: {{ $maxRedeemablePoints }},
+        pointsToRedeem: {{ old('points_to_redeem', 0) }},
+        pointsDiscount: 0,
+        isValidatingPoints: false,
+        pointsError: '',
+
+        get totalDiscount() {
+            return this.couponDiscount + this.pointsDiscount;
+        },
+
         get grandTotal() {
-            return this.subtotal + parseInt(this.shippingCost || 0);
+            return Math.max(0, this.subtotal - this.totalDiscount + parseInt(this.shippingCost || 0));
         },
 
         formatRupiah(val) {
@@ -128,9 +148,104 @@
             this.calculateShippingRates();
         },
 
+        async applyCoupon(codeToApply = null) {
+            const code = (codeToApply || this.couponInput).trim().toUpperCase();
+            if (!code) {
+                this.couponError = 'Harap masukkan kode kupon.';
+                return;
+            }
+
+            this.isValidatingCoupon = true;
+            this.couponError = '';
+            this.couponMessage = '';
+
+            try {
+                const res = await fetch('{{ route('checkout.coupon.validate') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                    },
+                    body: JSON.stringify({ coupon_code: code })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    this.appliedCouponCode = data.coupon.code;
+                    this.couponInput = data.coupon.code;
+                    this.couponDiscount = data.coupon.discount_amount;
+                    this.couponMessage = data.message;
+                    this.recalculatePoints();
+                } else {
+                    this.couponError = data.message || 'Kupon tidak dapat digunakan.';
+                    this.removeCoupon();
+                }
+            } catch (e) {
+                this.couponError = 'Gagal menghubungi server untuk validasi kupon.';
+            } finally {
+                this.isValidatingCoupon = false;
+            }
+        },
+
+        removeCoupon() {
+            this.appliedCouponCode = '';
+            this.couponDiscount = 0;
+            this.couponMessage = '';
+            this.recalculatePoints();
+        },
+
+        async recalculatePoints() {
+            if (this.pointsToRedeem <= 0 || !this.userPointsBalance) {
+                this.pointsDiscount = 0;
+                this.pointsError = '';
+                return;
+            }
+
+            this.isValidatingPoints = true;
+            this.pointsError = '';
+
+            try {
+                const res = await fetch('{{ route('checkout.points.calculate') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                    },
+                    body: JSON.stringify({
+                        points: this.pointsToRedeem,
+                        coupon_discount: this.couponDiscount
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    this.pointsToRedeem = data.points_to_redeem;
+                    this.pointsDiscount = data.discount_amount;
+                    this.maxRedeemablePoints = data.max_allowed_points;
+                } else {
+                    this.pointsError = data.message || 'Gagal menghitung diskon poin.';
+                    this.pointsDiscount = 0;
+                }
+            } catch (e) {
+                this.pointsError = 'Gagal menghitung diskon poin.';
+            } finally {
+                this.isValidatingPoints = false;
+            }
+        },
+
+        useMaxPoints() {
+            this.pointsToRedeem = this.maxRedeemablePoints;
+            this.recalculatePoints();
+        },
+
         init() {
             this.fetchCities(this.selectedProvinceId, this.selectedProvinceName);
             this.calculateShippingRates();
+            if (this.appliedCouponCode) {
+                this.applyCoupon(this.appliedCouponCode);
+            }
         }
     }">
 
@@ -140,7 +255,7 @@
             <a href="{{ route('cart.index') }}" class="hover:text-charcoal-900">&larr; Kembali ke Keranjang</a>
         </nav>
         <h1 class="text-2xl sm:text-3xl font-display font-bold text-charcoal-950">Konfirmasi Pemesanan &amp; Checkout</h1>
-        <p class="text-xs text-charcoal-500 font-light mt-1">Lengkapi data pengiriman dan pilih metode pembayaran resmi terenkripsi.</p>
+        <p class="text-xs text-charcoal-500 font-light mt-1">Lengkapi data pengiriman, gunakan kupon/poin reward, dan pilih metode pembayaran resmi terenkripsi.</p>
     </div>
 
     <!-- Error Alert -->
@@ -180,6 +295,9 @@
         <input type="hidden" name="service_description" :value="selectedServiceDesc">
         <input type="hidden" name="etd_days" :value="selectedEtdDays">
         <input type="hidden" name="shipping_cost" :value="shippingCost">
+
+        <input type="hidden" name="coupon_code" :value="appliedCouponCode">
+        <input type="hidden" name="points_to_redeem" :value="pointsToRedeem">
 
         <input type="hidden" name="payment_method" :value="selectedPaymentMethod">
 
@@ -358,8 +476,109 @@
 
         </div>
 
-        <!-- Right Column: Order Summary Sticky Sidebar (5 Cols) -->
+        <!-- Right Column: Order Summary & Promo Sticky Sidebar (5 Cols) -->
         <div class="lg:col-span-5 space-y-6">
+
+            <!-- Promo & Voucher Section -->
+            <div class="glass-card p-6 rounded-3xl border border-cream-300 space-y-4">
+                <div class="flex items-center space-x-2 pb-2 border-b border-cream-200">
+                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l6-6m4.5-3.75l-15 15a2.25 2.25 0 003.182 3.182l15-15a2.25 2.25 0 00-3.182-3.182z"/></svg>
+                    <h3 class="font-display font-bold text-charcoal-950 text-sm">Voucher &amp; Kupon Promo</h3>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                    <div class="flex space-x-2">
+                        <input type="text" x-model="couponInput" :disabled="appliedCouponCode !== ''"
+                            placeholder="Ketik kode kupon..."
+                            class="flex-1 px-4 py-2.5 bg-white/90 border border-cream-300 rounded-2xl focus:ring-2 focus:ring-charcoal-950 font-mono uppercase text-xs">
+                        
+                        <template x-if="!appliedCouponCode">
+                            <button type="button" @click="applyCoupon()" :disabled="isValidatingCoupon"
+                                class="px-4 py-2.5 bg-charcoal-950 text-cream-200 font-bold rounded-2xl hover:bg-charcoal-900 transition-smooth text-xs disabled:opacity-50">
+                                <span x-show="!isValidatingCoupon">Gunakan</span>
+                                <span x-show="isValidatingCoupon">Cek...</span>
+                            </button>
+                        </template>
+
+                        <template x-if="appliedCouponCode">
+                            <button type="button" @click="removeCoupon()"
+                                class="px-4 py-2.5 bg-rose-50 text-rose-700 border border-rose-200 font-bold rounded-2xl hover:bg-rose-100 transition-smooth text-xs">
+                                Hapus
+                            </button>
+                        </template>
+                    </div>
+
+                    <!-- Feedback message -->
+                    <div x-show="couponMessage" class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] flex items-center justify-between">
+                        <span x-text="couponMessage"></span>
+                        <span class="font-bold font-mono" x-text="'- ' + formatRupiah(couponDiscount)"></span>
+                    </div>
+
+                    <div x-show="couponError" class="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-[11px]" x-text="couponError"></div>
+
+                    <!-- Available Active Coupons Carousel / Badges -->
+                    @if($activeCoupons->isNotEmpty())
+                        <div class="pt-2 border-t border-cream-100">
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-charcoal-400 block mb-1.5">Kupon Promo Tersedia:</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                @foreach($activeCoupons as $c)
+                                    <button type="button" @click="applyCoupon('{{ $c->code }}')"
+                                        class="px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-[10px] font-mono font-bold transition-smooth">
+                                        {{ $c->code }} ({{ $c->formatted_discount }})
+                                    </button>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Loyalty Points Section (Members Only) -->
+            @if($user)
+                <div class="glass-card p-6 rounded-3xl border border-cream-300 space-y-4">
+                    <div class="flex items-center justify-between pb-2 border-b border-cream-200">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-5 h-5 rounded-full bg-amber-400/20 text-amber-600 flex items-center justify-center font-bold text-[10px]">💎</span>
+                            <h3 class="font-display font-bold text-charcoal-950 text-sm">Poin Loyalitas Member</h3>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-charcoal-800 bg-cream-200 px-2 py-0.5 rounded-lg" x-text="'Saldo: ' + userPointsBalance + ' Poin'"></span>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <template x-if="userPointsBalance > 0 && maxRedeemablePoints > 0">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between text-[11px] text-charcoal-600">
+                                    <span>Tukarkan Poin (Maks. <span class="font-bold" x-text="maxRedeemablePoints"></span> poin):</span>
+                                    <button type="button" @click="useMaxPoints()" class="text-amber-700 font-bold hover:underline">Gunakan Maksimal</button>
+                                </div>
+
+                                <div class="flex items-center space-x-3">
+                                    <input type="range" min="0" :max="maxRedeemablePoints" step="10" x-model.number="pointsToRedeem" @input="recalculatePoints()"
+                                        class="w-full accent-charcoal-950 cursor-pointer">
+                                    <input type="number" min="0" :max="maxRedeemablePoints" x-model.number="pointsToRedeem" @change="recalculatePoints()"
+                                        class="w-20 px-2.5 py-1.5 bg-white border border-cream-300 rounded-xl text-xs font-mono font-bold text-right">
+                                </div>
+
+                                <div x-show="pointsDiscount > 0" class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] flex items-center justify-between">
+                                    <span>Potongan dari <span class="font-bold" x-text="pointsToRedeem"></span> Poin:</span>
+                                    <span class="font-bold font-mono" x-text="'- ' + formatRupiah(pointsDiscount)"></span>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template x-if="userPointsBalance <= 0">
+                            <p class="text-[11px] text-charcoal-400 font-light italic">Anda belum memiliki saldo poin. Selesaikan pesanan ini untuk mendapatkan reward poin!</p>
+                        </template>
+
+                        <div class="pt-2 border-t border-cream-100 flex items-center justify-between text-[10px] text-charcoal-500">
+                            <span>Estimasi reward poin dari pesanan ini:</span>
+                            <span class="font-bold font-mono text-emerald-700">+{{ (int) floor($cartTotals['subtotal'] / 10000) }} Poin</span>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <!-- Order Summary Sticky Card -->
             <div class="glass-card p-6 sm:p-7 rounded-3xl border-2 border-cream-300 shadow-xl space-y-6 sticky top-24">
                 
                 <h3 class="font-display font-bold text-charcoal-950 text-base pb-3 border-b border-cream-200">
@@ -367,7 +586,7 @@
                 </h3>
 
                 <!-- Cart Items Compact List -->
-                <div class="space-y-3 max-h-64 overflow-y-auto pr-1">
+                <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
                     @foreach($cartTotals['cart_items'] as $item)
                         <div class="flex items-center space-x-3 py-2 border-b border-cream-100 last:border-0">
                             <div class="w-12 h-14 rounded-xl bg-cream-100 overflow-hidden shrink-0">
@@ -388,6 +607,23 @@
                         <span>Subtotal Produk</span>
                         <span class="font-mono font-bold text-charcoal-900" x-text="formatRupiah(subtotal)"></span>
                     </div>
+
+                    <!-- Discount Coupon Line -->
+                    <div x-show="couponDiscount > 0" class="flex items-center justify-between text-emerald-700 font-bold">
+                        <div>
+                            <span>Diskon Kupon Promo</span>
+                            <span class="text-[10px] font-mono block opacity-80" x-text="'(' + appliedCouponCode + ')'"></span>
+                        </div>
+                        <span class="font-mono" x-text="'- ' + formatRupiah(couponDiscount)"></span>
+                    </div>
+
+                    <!-- Points Discount Line -->
+                    <div x-show="pointsDiscount > 0" class="flex items-center justify-between text-amber-700 font-bold">
+                        <span>Diskon Poin Loyalitas</span>
+                        <span class="font-mono" x-text="'- ' + formatRupiah(pointsDiscount)"></span>
+                    </div>
+
+                    <!-- Shipping Cost Line -->
                     <div class="flex items-center justify-between">
                         <div>
                             <span>Ongkos Kirim</span>

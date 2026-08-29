@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Coupon\ValidateCouponAction;
 use App\Actions\Order\CreateOrderAction;
 use App\Contracts\ShippingServiceInterface;
 use App\Enums\PaymentMethod;
 use App\Models\Address;
+use App\Models\Coupon;
 use App\Services\CartService;
+use App\Services\LoyaltyPointService;
 use App\Services\PricingService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +23,9 @@ class CheckoutController extends Controller
         protected CartService $cartService,
         protected PricingService $pricingService,
         protected ShippingServiceInterface $shippingService,
-        protected CreateOrderAction $createOrderAction
+        protected CreateOrderAction $createOrderAction,
+        protected ValidateCouponAction $validateCouponAction,
+        protected LoyaltyPointService $loyaltyPointService
     ) {}
 
     /**
@@ -39,12 +44,110 @@ class CheckoutController extends Controller
         $provinces = $this->shippingService->getProvinces();
         $paymentMethods = PaymentMethod::cases();
 
+        $activeCoupons = Coupon::active()
+            ->where(function ($q) use ($cartTotals) {
+                $q->where('min_order_amount', '<=', $cartTotals['subtotal']);
+            })
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $userPoints = $user ? (int) $user->loyalty_points : 0;
+        $maxRedeemablePoints = $user ? $this->loyaltyPointService->getMaxRedeemablePoints($user, $cartTotals['subtotal']) : 0;
+
         return view('storefront.checkout', [
             'cartTotals' => $cartTotals,
             'savedAddresses' => $savedAddresses,
             'provinces' => $provinces,
             'paymentMethods' => $paymentMethods,
             'user' => $user,
+            'activeCoupons' => $activeCoupons,
+            'userPoints' => $userPoints,
+            'maxRedeemablePoints' => $maxRedeemablePoints,
+        ]);
+    }
+
+    /**
+     * AJAX endpoint to validate a coupon.
+     */
+    public function validateCoupon(Request $request): JsonResponse
+    {
+        $request->validate([
+            'coupon_code' => 'required|string|max:64',
+            'subtotal' => 'nullable|integer|min:0',
+        ]);
+
+        $user = auth()->user();
+        $cartTotals = $this->cartService->getCartTotals($user);
+        $subtotal = $request->filled('subtotal') ? (int) $request->input('subtotal') : $cartTotals['subtotal'];
+
+        try {
+            $result = $this->validateCouponAction->execute(
+                code: $request->input('coupon_code'),
+                subtotal: $subtotal,
+                user: $user
+            );
+
+            return response()->json([
+                'success' => true,
+                'coupon' => [
+                    'code' => $result['coupon']->code,
+                    'name' => $result['coupon']->name,
+                    'type' => $result['coupon']->type->value,
+                    'discount_amount' => $result['discount_amount'],
+                    'formatted_discount' => $result['formatted_discount'],
+                ],
+                'message' => $result['message'],
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->validator->errors()->first('coupon_code'),
+            ], 422);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kendala saat memvalidasi kupon promo.',
+            ], 500);
+        }
+    }
+
+    /**
+     * AJAX endpoint to calculate points discount.
+     */
+    public function calculatePoints(Request $request): JsonResponse
+    {
+        $request->validate([
+            'points' => 'required|integer|min:0',
+            'coupon_discount' => 'nullable|integer|min:0',
+            'subtotal' => 'nullable|integer|min:0',
+        ]);
+
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Silakan login terlebih dahulu untuk menukarkan poin loyalitas.',
+            ], 401);
+        }
+
+        $cartTotals = $this->cartService->getCartTotals($user);
+        $subtotal = $request->filled('subtotal') ? (int) $request->input('subtotal') : $cartTotals['subtotal'];
+        $couponDiscount = (int) $request->input('coupon_discount', 0);
+        $remainingSubtotal = max(0, $subtotal - $couponDiscount);
+
+        $result = $this->loyaltyPointService->calculatePointsDiscount(
+            pointsRequested: (int) $request->input('points'),
+            subtotal: $remainingSubtotal,
+            user: $user
+        );
+
+        return response()->json([
+            'success' => true,
+            'points_to_redeem' => $result['points_to_redeem'],
+            'discount_amount' => $result['discount_amount'],
+            'formatted_discount' => $result['formatted_discount'],
+            'max_allowed_points' => $result['max_allowed_points'],
         ]);
     }
 
@@ -120,6 +223,8 @@ class CheckoutController extends Controller
             'etd_days' => 'nullable|string|max:32',
             'shipping_cost' => 'required|numeric|min:0',
             'payment_method' => 'required|string|in:' . implode(',', array_column(PaymentMethod::cases(), 'value')),
+            'coupon_code' => 'nullable|string|max:64',
+            'points_to_redeem' => 'nullable|integer|min:0',
         ];
 
         $validated = $request->validate($rules);
@@ -152,6 +257,8 @@ class CheckoutController extends Controller
                         'cost' => (int) $validated['shipping_cost'],
                     ],
                     'payment_method' => $validated['payment_method'],
+                    'coupon_code' => $validated['coupon_code'] ?? null,
+                    'points_to_redeem' => (int) ($validated['points_to_redeem'] ?? 0),
                     'reseller_id' => session('referral_reseller_id'),
                 ],
                 user: $user

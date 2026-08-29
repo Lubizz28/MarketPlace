@@ -195,7 +195,19 @@
                 <span>Ongkos Kirim</span>
                 <span class="font-mono font-bold text-charcoal-950">{{ $order->formatted_shipping_cost }}</span>
             </div>
-            @if($order->discount_amount > 0)
+            @if($order->coupon_discount > 0)
+                <div class="flex justify-between text-emerald-700 font-medium">
+                    <span>Diskon Kupon ({{ $order->coupon_code }})</span>
+                    <span class="font-mono">- {{ $order->formatted_coupon_discount }}</span>
+                </div>
+            @endif
+            @if($order->points_discount > 0)
+                <div class="flex justify-between text-amber-700 font-medium">
+                    <span>Diskon Poin ({{ $order->points_redeemed }} Poin)</span>
+                    <span class="font-mono">- {{ $order->formatted_points_discount }}</span>
+                </div>
+            @endif
+            @if($order->discount_amount > 0 && $order->coupon_discount == 0 && $order->points_discount == 0)
                 <div class="flex justify-between text-emerald-700 font-medium">
                     <span>Potongan Diskon</span>
                     <span class="font-mono">- Rp {{ number_format($order->discount_amount, 0, ',', '.') }}</span>

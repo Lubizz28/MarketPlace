@@ -2,6 +2,7 @@
 
 namespace App\Actions\Order;
 
+use App\Actions\Coupon\ValidateCouponAction;
 use App\Actions\Inventory\RecordInventoryMovementAction;
 use App\Contracts\PaymentGatewayInterface;
 use App\Enums\CustomerType;
@@ -10,9 +11,11 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Models\CartItem;
+use App\Models\CouponUsage;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\User;
+use App\Services\LoyaltyPointService;
 use App\Services\PricingService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +27,9 @@ class CreateOrderAction
         protected ValidateCartAction $validateCartAction,
         protected RecordInventoryMovementAction $recordInventoryMovementAction,
         protected PricingService $pricingService,
-        protected PaymentGatewayInterface $paymentGateway
+        protected PaymentGatewayInterface $paymentGateway,
+        protected ValidateCouponAction $validateCouponAction,
+        protected LoyaltyPointService $loyaltyPointService
     ) {}
 
     /**
@@ -58,6 +63,8 @@ class CreateOrderAction
      *         cost: int
      *     },
      *     payment_method: PaymentMethod|string,
+     *     coupon_code?: string|null,
+     *     points_to_redeem?: int|null,
      *     reseller_id?: int|null
      * } $data
      * @param User|null $user
@@ -71,21 +78,57 @@ class CreateOrderAction
 
             $customerType = $this->pricingService->getCustomerType($user);
             $orderNumber = $this->generateOrderNumber();
-            $shippingCost = (int) $data['shipping_service']['cost'];
-            $discountAmount = 0; // Coupo/voucher logic will integrate in Phase 5
             $subtotal = $validated['subtotal'];
-            $grandTotal = max(0, $subtotal - $discountAmount + $shippingCost);
+            $shippingCost = (int) $data['shipping_service']['cost'];
 
-            // 2. Create Order Header
+            // 2. Validate & Calculate Coupon Discount
+            $coupon = null;
+            $couponDiscount = 0;
+            $couponCode = null;
+
+            if (!empty($data['coupon_code'])) {
+                $couponResult = $this->validateCouponAction->execute($data['coupon_code'], $subtotal, $user);
+                if ($couponResult['valid'] && $couponResult['coupon']) {
+                    $coupon = $couponResult['coupon'];
+                    $couponDiscount = $couponResult['discount_amount'];
+                    $couponCode = $coupon->code;
+                }
+            }
+
+            // 3. Validate & Calculate Loyalty Points Discount
+            $pointsRedeemed = 0;
+            $pointsDiscount = 0;
+
+            if ($user && !empty($data['points_to_redeem']) && $data['points_to_redeem'] > 0) {
+                $remainingSubtotal = max(0, $subtotal - $couponDiscount);
+                $pointsResult = $this->loyaltyPointService->calculatePointsDiscount(
+                    pointsRequested: (int) $data['points_to_redeem'],
+                    subtotal: $remainingSubtotal,
+                    user: $user
+                );
+
+                $pointsRedeemed = $pointsResult['points_to_redeem'];
+                $pointsDiscount = $pointsResult['discount_amount'];
+            }
+
+            $totalDiscount = $couponDiscount + $pointsDiscount;
+            $grandTotal = max(0, $subtotal - $totalDiscount + $shippingCost);
+
+            // 4. Create Order Header
             $order = Order::create([
                 'order_number' => $orderNumber,
                 'user_id' => $user?->id,
                 'customer_type' => $customerType,
                 'reseller_id' => $data['reseller_id'] ?? null,
+                'coupon_id' => $coupon?->id,
+                'coupon_code' => $couponCode,
                 'status' => OrderStatus::PENDING_PAYMENT,
                 'payment_status' => PaymentStatus::UNPAID,
                 'subtotal' => $subtotal,
-                'discount_amount' => $discountAmount,
+                'coupon_discount' => $couponDiscount,
+                'points_redeemed' => $pointsRedeemed,
+                'points_discount' => $pointsDiscount,
+                'discount_amount' => $totalDiscount,
                 'shipping_cost' => $shippingCost,
                 'grand_total' => $grandTotal,
                 'customer_name' => $data['customer_name'],
@@ -95,7 +138,24 @@ class CreateOrderAction
                 'expires_at' => now()->addHours(24),
             ]);
 
-            // 3. Create Order Items & Deduct Stock Atomic Ledger
+            // 5. Record Coupon Usage & increment counter
+            if ($coupon && $couponDiscount > 0) {
+                CouponUsage::create([
+                    'coupon_id' => $coupon->id,
+                    'user_id' => $user?->id,
+                    'order_id' => $order->id,
+                    'discount_applied' => $couponDiscount,
+                ]);
+
+                $coupon->increment('used_count');
+            }
+
+            // 6. Deduct Points from Member Balance
+            if ($user && $pointsRedeemed > 0) {
+                $this->loyaltyPointService->redeemPoints($user, $pointsRedeemed, $order);
+            }
+
+            // 7. Create Order Items & Deduct Stock Atomic Ledger
             foreach ($validated['items'] as $item) {
                 $variant = $item['variant'];
 
@@ -122,7 +182,7 @@ class CreateOrderAction
                 );
             }
 
-            // 4. Create Order Address
+            // 8. Create Order Address
             $addr = $data['shipping_address'];
             $order->address()->create([
                 'recipient_name' => $addr['recipient_name'],
@@ -138,7 +198,7 @@ class CreateOrderAction
                 'notes' => $addr['notes'] ?? null,
             ]);
 
-            // 5. Create Order Shipment
+            // 9. Create Order Shipment
             $ship = $data['shipping_service'];
             $order->shipment()->create([
                 'courier_code' => $ship['courier_code'],
@@ -151,7 +211,7 @@ class CreateOrderAction
                 'status' => 'pending',
             ]);
 
-            // 6. Create Initial Payment Record & Gateway Charge
+            // 10. Create Initial Payment Record & Gateway Charge
             $paymentMethod = is_string($data['payment_method'])
                 ? PaymentMethod::from($data['payment_method'])
                 : $data['payment_method'];
@@ -184,7 +244,7 @@ class CreateOrderAction
                 ]);
             }
 
-            // 7. Clear Cart Items for this user or session
+            // 11. Clear Cart Items for this user or session
             if ($user) {
                 CartItem::where('user_id', $user->id)->delete();
             } else {
@@ -194,7 +254,7 @@ class CreateOrderAction
                 }
             }
 
-            return $order->load(['items', 'address', 'shipment', 'payment']);
+            return $order->load(['items', 'address', 'shipment', 'payment', 'coupon']);
         });
     }
 
