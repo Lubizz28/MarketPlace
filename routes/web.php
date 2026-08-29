@@ -85,6 +85,12 @@ Route::middleware(['auth', 'role:reseller|admin'])
     ->name('reseller.')
     ->group(function () {
         Route::get('/dashboard', [ResellerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/commissions', [ResellerDashboardController::class, 'commissions'])->name('commissions.index');
+        Route::get('/wallet', [ResellerDashboardController::class, 'wallet'])->name('wallet.index');
+        Route::get('/withdrawals', [ResellerDashboardController::class, 'withdrawals'])->name('withdrawals.index');
+        Route::post('/withdrawals', [ResellerDashboardController::class, 'storeWithdrawal'])->name('withdrawals.store');
+        Route::get('/profile', [ResellerDashboardController::class, 'profile'])->name('profile');
+        Route::post('/profile', [ResellerDashboardController::class, 'updateProfile'])->name('profile.update');
     });
 
 // Admin Routes (Admin ONLY)
@@ -94,6 +100,16 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/users', [AdminDashboardController::class, 'users'])->name('users.index');
+
+        // Reseller Management & Approvals
+        Route::get('/resellers', [\App\Http\Controllers\Admin\AdminResellerController::class, 'index'])->name('resellers.index');
+        Route::get('/resellers/{reseller}', [\App\Http\Controllers\Admin\AdminResellerController::class, 'show'])->name('resellers.show');
+        Route::post('/resellers/{reseller}/verify', [\App\Http\Controllers\Admin\AdminResellerController::class, 'verify'])->name('resellers.verify');
+        Route::post('/resellers/{reseller}/reject', [\App\Http\Controllers\Admin\AdminResellerController::class, 'reject'])->name('resellers.reject');
+
+        // Reseller Withdrawals Management
+        Route::get('/withdrawals', [\App\Http\Controllers\Admin\AdminResellerController::class, 'withdrawals'])->name('withdrawals.index');
+        Route::post('/withdrawals/{withdrawal}/process', [\App\Http\Controllers\Admin\AdminResellerController::class, 'processWithdrawal'])->name('withdrawals.process');
 
         // Order Management & Lifecycle
         Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');

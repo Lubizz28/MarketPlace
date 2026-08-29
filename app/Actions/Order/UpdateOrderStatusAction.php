@@ -9,6 +9,7 @@ use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\LoyaltyPointService;
+use App\Services\ResellerWalletService;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
@@ -16,11 +17,12 @@ class UpdateOrderStatusAction
 {
     public function __construct(
         protected RecordInventoryMovementAction $recordInventoryMovementAction,
-        protected LoyaltyPointService $loyaltyPointService
+        protected LoyaltyPointService $loyaltyPointService,
+        protected ResellerWalletService $resellerWalletService
     ) {}
 
     /**
-     * Transition order to a new status with validation and inventory & point side effects.
+     * Transition order to a new status with validation and inventory & point & reseller commission side effects.
      */
     public function execute(Order $order, OrderStatus $targetStatus, ?User $actor = null, ?string $reason = null): Order
     {
@@ -88,6 +90,9 @@ class UpdateOrderStatusAction
 
                     // Award loyalty points to member
                     $this->loyaltyPointService->earnPointsForOrder($lockedOrder);
+
+                    // Credit available commission to reseller wallet
+                    $this->resellerWalletService->creditCommissionOnOrderCompleted($lockedOrder);
                     break;
 
                 case OrderStatus::CANCELLED:
@@ -116,6 +121,9 @@ class UpdateOrderStatusAction
 
                     // Refund redeemed points
                     $this->loyaltyPointService->refundPointsForOrder($lockedOrder);
+
+                    // Cancel reseller commission
+                    $this->resellerWalletService->cancelCommissionOnOrderCancelled($lockedOrder);
                     break;
 
                 case OrderStatus::REFUNDED:
@@ -141,6 +149,9 @@ class UpdateOrderStatusAction
 
                     // Refund / Reverse points
                     $this->loyaltyPointService->refundPointsForOrder($lockedOrder);
+
+                    // Cancel reseller commission
+                    $this->resellerWalletService->cancelCommissionOnOrderCancelled($lockedOrder);
                     break;
             }
 

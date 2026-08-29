@@ -17,6 +17,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Services\LoyaltyPointService;
 use App\Services\PricingService;
+use App\Services\ResellerWalletService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -29,7 +30,8 @@ class CreateOrderAction
         protected PricingService $pricingService,
         protected PaymentGatewayInterface $paymentGateway,
         protected ValidateCouponAction $validateCouponAction,
-        protected LoyaltyPointService $loyaltyPointService
+        protected LoyaltyPointService $loyaltyPointService,
+        protected ResellerWalletService $resellerWalletService
     ) {}
 
     /**
@@ -252,6 +254,11 @@ class CreateOrderAction
                 if ($sessionId) {
                     CartItem::where('session_id', $sessionId)->delete();
                 }
+            }
+
+            // 12. Allocate Pending Commission for Reseller Referral
+            if ($order->reseller_id) {
+                $this->resellerWalletService->allocatePendingCommission($order);
             }
 
             return $order->load(['items', 'address', 'shipment', 'payment', 'coupon']);

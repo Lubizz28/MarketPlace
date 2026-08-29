@@ -138,6 +138,23 @@ class DatabaseSeeder extends Seeder
             'postal_code' => '40266',
             'is_primary' => true,
         ]);
+        \App\Models\ResellerProfile::create([
+            'user_id' => $reseller->id,
+            'store_name' => 'Khadijah Hijab Store',
+            'referral_code' => 'KHADIJAH',
+            'bank_name' => 'BCA',
+            'bank_account_number' => '8830123456',
+            'bank_account_name' => 'Khadijah Hijab Store',
+            'kyc_status' => \App\Enums\KycStatus::VERIFIED,
+            'commission_rate_percent' => 10,
+            'approved_at' => now(),
+        ]);
+        \App\Models\ResellerWallet::create([
+            'user_id' => $reseller->id,
+            'balance' => 250000,
+            'pending_balance' => 50000,
+            'total_withdrawn' => 100000,
+        ]);
 
         // 6. Seed Product Catalog, Categories, Brands, Variants, Multi-Tier Prices, and Inventory
         $this->call([

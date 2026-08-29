@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\EnsureUserRole;
 use App\Http\Middleware\SecurityHeaders;
+use App\Http\Middleware\TrackReferralMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(SecurityHeaders::class);
+        $middleware->web(append: [
+            TrackReferralMiddleware::class,
+        ]);
         $middleware->validateCsrfTokens(except: [
             'webhook/*',
         ]);

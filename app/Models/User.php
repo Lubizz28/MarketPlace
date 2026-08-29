@@ -65,6 +65,31 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function resellerProfile(): HasOne
+    {
+        return $this->hasOne(ResellerProfile::class);
+    }
+
+    public function resellerWallet(): HasOne
+    {
+        return $this->hasOne(ResellerWallet::class);
+    }
+
+    public function resellerCommissions(): HasMany
+    {
+        return $this->hasMany(ResellerCommission::class, 'reseller_id')->latest();
+    }
+
+    public function resellerWithdrawals(): HasMany
+    {
+        return $this->hasMany(ResellerWithdrawal::class)->latest();
+    }
+
+    public function referralOrders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'reseller_id')->latest();
+    }
+
     public function pointTransactions(): HasMany
     {
         return $this->hasMany(PointTransaction::class)->latest();
