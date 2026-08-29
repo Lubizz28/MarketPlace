@@ -101,6 +101,24 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/users', [AdminDashboardController::class, 'users'])->name('users.index');
 
+        // Customer Relationship Management (CRM)
+        Route::get('/customers', [\App\Http\Controllers\Admin\AdminCustomerController::class, 'index'])->name('customers.index');
+        Route::get('/customers/{customer}', [\App\Http\Controllers\Admin\AdminCustomerController::class, 'show'])->name('customers.show');
+        Route::post('/customers/{customer}/toggle', [\App\Http\Controllers\Admin\AdminCustomerController::class, 'toggleStatus'])->name('customers.toggle');
+
+        // Product Catalog Management
+        Route::get('/products', [\App\Http\Controllers\Admin\AdminProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [\App\Http\Controllers\Admin\AdminProductController::class, 'create'])->name('products.create');
+        Route::post('/products', [\App\Http\Controllers\Admin\AdminProductController::class, 'store'])->name('products.store');
+        Route::get('/products/{product}/edit', [\App\Http\Controllers\Admin\AdminProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{product}', [\App\Http\Controllers\Admin\AdminProductController::class, 'update'])->name('products.update');
+        Route::post('/products/{product}/toggle', [\App\Http\Controllers\Admin\AdminProductController::class, 'toggleStatus'])->name('products.toggle');
+
+        // Stock & Inventory Ledger Matrix
+        Route::get('/inventory', [\App\Http\Controllers\Admin\AdminInventoryController::class, 'index'])->name('inventory.index');
+        Route::post('/inventory/{variant}/adjust', [\App\Http\Controllers\Admin\AdminInventoryController::class, 'adjustStock'])->name('inventory.adjust');
+        Route::get('/inventory/{variant}/movements', [\App\Http\Controllers\Admin\AdminInventoryController::class, 'movements'])->name('inventory.movements');
+
         // Executive Analytics & Reporting
         Route::get('/analytics', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
         Route::get('/analytics/export/orders', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'exportOrders'])->name('analytics.export.orders');

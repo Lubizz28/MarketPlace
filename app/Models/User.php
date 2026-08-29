@@ -85,6 +85,11 @@ class User extends Authenticatable
         return $this->hasMany(ResellerWithdrawal::class)->latest();
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'user_id')->latest();
+    }
+
     public function referralOrders(): HasMany
     {
         return $this->hasMany(Order::class, 'reseller_id')->latest();
@@ -93,6 +98,12 @@ class User extends Authenticatable
     public function pointTransactions(): HasMany
     {
         return $this->hasMany(PointTransaction::class)->latest();
+    }
+
+    public function getPointsBalanceAttribute(): int
+    {
+        $latest = $this->pointTransactions()->first();
+        return $latest ? (int) $latest->balance_after : 0;
     }
 
     public function couponUsages(): HasMany
