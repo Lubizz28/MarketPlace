@@ -9,6 +9,7 @@ use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\LoyaltyPointService;
+use App\Services\Notification\NotificationService;
 use App\Services\ResellerWalletService;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -18,7 +19,8 @@ class UpdateOrderStatusAction
     public function __construct(
         protected RecordInventoryMovementAction $recordInventoryMovementAction,
         protected LoyaltyPointService $loyaltyPointService,
-        protected ResellerWalletService $resellerWalletService
+        protected ResellerWalletService $resellerWalletService,
+        protected NotificationService $notificationService
     ) {}
 
     /**
@@ -51,6 +53,9 @@ class UpdateOrderStatusAction
                             'paid_at' => now(),
                         ]);
                     }
+
+                    // Send Payment Received notification
+                    $this->notificationService->sendPaymentSuccessNotification($lockedOrder);
                     break;
 
                 case OrderStatus::PROCESSING:
@@ -68,6 +73,9 @@ class UpdateOrderStatusAction
                             'shipped_at' => now(),
                         ]);
                     }
+
+                    // Send Shipment Tracking notification
+                    $this->notificationService->sendOrderShippedNotification($lockedOrder);
                     break;
 
                 case OrderStatus::DELIVERED:

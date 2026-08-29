@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\PaymentGatewayInterface::class,
             \App\Services\Payment\MidtransPaymentGateway::class
         );
+
+        $this->app->bind(
+            \App\Contracts\WhatsAppGatewayInterface::class,
+            \App\Services\WhatsApp\MockWhatsAppGateway::class
+        );
     }
 
     /**

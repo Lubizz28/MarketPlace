@@ -16,6 +16,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\User;
 use App\Services\LoyaltyPointService;
+use App\Services\Notification\NotificationService;
 use App\Services\PricingService;
 use App\Services\ResellerWalletService;
 use Illuminate\Support\Collection;
@@ -31,7 +32,8 @@ class CreateOrderAction
         protected PaymentGatewayInterface $paymentGateway,
         protected ValidateCouponAction $validateCouponAction,
         protected LoyaltyPointService $loyaltyPointService,
-        protected ResellerWalletService $resellerWalletService
+        protected ResellerWalletService $resellerWalletService,
+        protected NotificationService $notificationService
     ) {}
 
     /**
@@ -260,6 +262,9 @@ class CreateOrderAction
             if ($order->reseller_id) {
                 $this->resellerWalletService->allocatePendingCommission($order);
             }
+
+            // 13. Dispatch Order Placed WhatsApp/Email Notification
+            $this->notificationService->sendOrderPlacedNotification($order);
 
             return $order->load(['items', 'address', 'shipment', 'payment', 'coupon']);
         });

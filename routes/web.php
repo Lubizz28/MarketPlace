@@ -101,6 +101,15 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/users', [AdminDashboardController::class, 'users'])->name('users.index');
 
+        // Executive Analytics & Reporting
+        Route::get('/analytics', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'index'])->name('analytics.index');
+        Route::get('/analytics/export/orders', [\App\Http\Controllers\Admin\AdminAnalyticsController::class, 'exportOrders'])->name('analytics.export.orders');
+
+        // Promotional Broadcast Campaigns
+        Route::get('/broadcasts', [\App\Http\Controllers\Admin\AdminBroadcastController::class, 'index'])->name('broadcasts.index');
+        Route::get('/broadcasts/create', [\App\Http\Controllers\Admin\AdminBroadcastController::class, 'create'])->name('broadcasts.create');
+        Route::post('/broadcasts', [\App\Http\Controllers\Admin\AdminBroadcastController::class, 'store'])->name('broadcasts.store')->middleware('throttle:10,1');
+
         // Reseller Management & Approvals
         Route::get('/resellers', [\App\Http\Controllers\Admin\AdminResellerController::class, 'index'])->name('resellers.index');
         Route::get('/resellers/{reseller}', [\App\Http\Controllers\Admin\AdminResellerController::class, 'show'])->name('resellers.show');

@@ -11,6 +11,7 @@ use App\Models\ResellerWallet;
 use App\Models\ResellerWalletTransaction;
 use App\Models\ResellerWithdrawal;
 use App\Models\User;
+use App\Services\Notification\NotificationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -18,6 +19,10 @@ use Illuminate\Validation\ValidationException;
 class ResellerWalletService
 {
     public const MINIMUM_WITHDRAWAL_AMOUNT = 50000;
+
+    public function __construct(
+        protected NotificationService $notificationService
+    ) {}
 
     /**
      * Get or create wallet for a reseller user.
@@ -276,7 +281,14 @@ class ResellerWalletService
                 ]);
             }
 
-            return $lockedWithdrawal->fresh();
+            $freshWithdrawal = $lockedWithdrawal->fresh(['user']);
+
+            // Send Payout Notification
+            if ($targetStatus === WithdrawalStatus::PAID || $targetStatus === WithdrawalStatus::REJECTED) {
+                $this->notificationService->sendWithdrawalProcessedNotification($freshWithdrawal);
+            }
+
+            return $freshWithdrawal;
         });
     }
 }
