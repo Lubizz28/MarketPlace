@@ -156,10 +156,11 @@ class DatabaseSeeder extends Seeder
             'total_withdrawn' => 100000,
         ]);
 
-        // 6. Seed Product Catalog, Categories, Brands, Variants, Multi-Tier Prices, and Inventory
+        // 6. Seed Product Catalog, Categories, Brands, Variants, Multi-Tier Prices, Inventory, Promos, CMS, and Settings
         $this->call([
             ProductCatalogSeeder::class,
             CouponSeeder::class,
+            CmsAndSettingsSeeder::class,
         ]);
     }
 }

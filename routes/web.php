@@ -154,4 +154,25 @@ Route::middleware(['auth', 'role:admin'])
 
         // Payment Transactions Audit Log
         Route::get('/payments', [\App\Http\Controllers\Admin\PaymentTransactionController::class, 'index'])->name('payments.index');
+
+        // CMS Hero Banners
+        Route::resource('/cms/banners', \App\Http\Controllers\Admin\AdminBannerController::class)->names('cms.banners')->except(['show']);
+
+        // CMS Static Pages
+        Route::resource('/cms/pages', \App\Http\Controllers\Admin\AdminPageController::class)->names('cms.pages')->except(['show']);
+
+        // CMS Blog & Fashion Guides
+        Route::resource('/cms/posts', \App\Http\Controllers\Admin\AdminPostController::class)->names('cms.posts')->except(['show']);
+
+        // Store & Platform Settings
+        Route::get('/settings', [\App\Http\Controllers\Admin\AdminSettingController::class, 'index'])->name('settings.index');
+        Route::put('/settings', [\App\Http\Controllers\Admin\AdminSettingController::class, 'update'])->name('settings.update');
+
+        // Audit Activity Logs
+        Route::get('/activity-logs', [\App\Http\Controllers\Admin\AdminActivityLogController::class, 'index'])->name('activity-logs.index');
     });
+
+// Public Static CMS Pages & Blog
+Route::get('/pages/{slug}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
+Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
