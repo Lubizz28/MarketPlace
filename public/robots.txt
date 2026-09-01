@@ -1,2 +1,21 @@
 User-agent: *
-Disallow:
+Allow: /
+Allow: /catalog
+Allow: /category/
+Allow: /product/
+Allow: /blog
+Allow: /blog/
+Allow: /pages/
+
+# Disallow private and checkout areas
+Disallow: /admin/
+Disallow: /member/
+Disallow: /reseller/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /webhook/
+Disallow: /login
+Disallow: /register
+
+# Dynamic XML Sitemap
+Sitemap: /sitemap.xml

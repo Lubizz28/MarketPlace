@@ -28,6 +28,11 @@ class Post extends Model
         'published_at' => 'datetime',
     ];
 
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');

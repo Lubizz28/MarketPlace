@@ -31,10 +31,10 @@ class CmsAndSettingsSeeder extends Seeder
         Page::firstOrCreate(
             ['slug' => 'tentang-kami'],
             [
-                'title' => 'Tentang MedinaStyle',
-                'content' => 'MedinaStyle adalah destinasi busana muslimah premium dan busana syar\'i terpercaya di Indonesia. Kami menghadirkan koleksi gamis, abaya, khimar, dan hijab elegan dengan komitmen kenyamanan syariat dan estetika modern.',
-                'meta_title' => 'Tentang Kami — MedinaStyle Islamic Fashion',
-                'meta_description' => 'Mengenal visi dan filosofi MedinaStyle dalam menghadirkan busana muslimah syar\'i berkualitas.',
+                'title' => 'Tentang Sulastika Jaya',
+                'content' => 'Sulastika Jaya adalah destinasi busana muslimah premium dan busana syar\'i terpercaya di Indonesia. Kami menghadirkan koleksi gamis, abaya, khimar, dan busana muslim elegan dengan komitmen mutu jahitan butik dan estetika berkelas.',
+                'meta_title' => 'Tentang Kami — Sulastika Jaya',
+                'meta_description' => 'Mengenal visi dan filosofi Sulastika Jaya dalam menghadirkan busana muslimah syar\'i berkualitas.',
                 'is_active' => true,
             ]
         );
@@ -43,9 +43,9 @@ class CmsAndSettingsSeeder extends Seeder
             ['slug' => 'kebijakan-privasi'],
             [
                 'title' => 'Kebijakan Privasi',
-                'content' => 'Kami di MedinaStyle sangat menghormati dan melindungi data pribadi setiap pelanggan. Seluruh data transaksi, alamat pengiriman, dan riwayat pesanan diamankan dengan enkripsi berstandar industri.',
-                'meta_title' => 'Kebijakan Privasi — MedinaStyle',
-                'meta_description' => 'Kebijakan perlindungan data dan privasi pengguna platform MedinaStyle.',
+                'content' => 'Kami di Sulastika Jaya sangat menghormati dan melindungi data pribadi setiap pelanggan. Seluruh data transaksi, alamat pengiriman, dan riwayat pesanan diamankan dengan enkripsi berstandar industri.',
+                'meta_title' => 'Kebijakan Privasi — Sulastika Jaya',
+                'meta_description' => 'Kebijakan perlindungan data dan privasi pengguna platform Sulastika Jaya.',
                 'is_active' => true,
             ]
         );
@@ -54,9 +54,9 @@ class CmsAndSettingsSeeder extends Seeder
             ['slug' => 'syarat-dan-ketentuan'],
             [
                 'title' => 'Syarat & Ketentuan',
-                'content' => 'Dengan berbelanja atau bergabung sebagai Member/Reseller di MedinaStyle, Anda menyetujui ketentuan pemesanan, kebijakan retur produk, atribusi komisi reseller, dan penggunaan kupon diskon.',
-                'meta_title' => 'Syarat & Ketentuan — MedinaStyle',
-                'meta_description' => 'Ketentuan transaksi, garansi pengiriman, dan program kemitraan reseller MedinaStyle.',
+                'content' => 'Dengan berbelanja atau bergabung sebagai Member/Reseller di Sulastika Jaya, Anda menyetujui ketentuan pemesanan, kebijakan retur produk, atribusi komisi reseller, dan penggunaan kupon diskon.',
+                'meta_title' => 'Syarat & Ketentuan — Sulastika Jaya',
+                'meta_description' => 'Ketentuan transaksi, garansi pengiriman, dan program kemitraan reseller Sulastika Jaya.',
                 'is_active' => true,
             ]
         );
@@ -79,12 +79,12 @@ class CmsAndSettingsSeeder extends Seeder
 
         // 4. Default Settings
         $defaultSettings = [
-            ['key' => 'store_name', 'value' => 'MedinaStyle', 'group' => 'general', 'label' => 'Nama Toko Marketplace', 'type' => 'text'],
-            ['key' => 'store_tagline', 'value' => 'Busana Muslimah & Hijab Syar\'i Premium', 'group' => 'general', 'label' => 'Tagline / Slogan', 'type' => 'text'],
+            ['key' => 'store_name', 'value' => 'Sulastika Jaya', 'group' => 'general', 'label' => 'Nama Toko Marketplace', 'type' => 'text'],
+            ['key' => 'store_tagline', 'value' => 'Busana Muslimah & Hijab Syar\'i Butik Berkelas', 'group' => 'general', 'label' => 'Tagline / Slogan', 'type' => 'text'],
             ['key' => 'cs_phone', 'value' => '081299998888', 'group' => 'general', 'label' => 'Nomor WhatsApp Customer Service', 'type' => 'text'],
-            ['key' => 'cs_email', 'value' => 'cs@medinastyle.com', 'group' => 'general', 'label' => 'Email Layanan Pelanggan', 'type' => 'text'],
-            ['key' => 'store_address', 'value' => 'Jl. Boulevard Hijab No. 88, Tanah Abang, Jakarta Pusat', 'group' => 'general', 'label' => 'Alamat Kantor / Gudang', 'type' => 'textarea'],
-            ['key' => 'rajaongkir_origin_city_id', 'value' => '152', 'group' => 'shipping', 'label' => 'ID Kota Asal Pengiriman (Jakarta Pusat)', 'type' => 'number'],
+            ['key' => 'cs_email', 'value' => 'cs@sulastikajaya.com', 'group' => 'general', 'label' => 'Email Layanan Pelanggan', 'type' => 'text'],
+            ['key' => 'store_address', 'value' => 'Jl. Kebon Jeruk No. 18, Jakarta Barat', 'group' => 'general', 'label' => 'Alamat Kantor / Gudang', 'type' => 'textarea'],
+            ['key' => 'rajaongkir_origin_city_id', 'value' => '152', 'group' => 'shipping', 'label' => 'ID Kota Asal Pengiriman', 'type' => 'number'],
             ['key' => 'min_withdrawal_amount', 'value' => '50000', 'group' => 'affiliate', 'label' => 'Minimal Penarikan Dana Reseller (Rp)', 'type' => 'number'],
             ['key' => 'default_reseller_commission_rate', 'value' => '10', 'group' => 'affiliate', 'label' => 'Persentase Komisi Referral Standar (%)', 'type' => 'number'],
             ['key' => 'points_per_ten_thousand', 'value' => '1', 'group' => 'loyalty', 'label' => 'Poin Didapat per Rp 10.000 Belanja', 'type' => 'number'],

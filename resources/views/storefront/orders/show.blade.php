@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Pesanan #' . $order->order_number . ' — Status & Faktur')
+@section('meta_robots', 'noindex, nofollow')
 
 @section('content')
+
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
     <!-- Top Status Banner -->
@@ -246,9 +248,6 @@
                     onError: function(result) {
                         alert('Pembayaran gagal, silakan coba metode pembayaran lain.');
                     },
-                    onClose: function() {
-                        console.log('Customer closed the payment popup without finishing.');
-                    }
                 });
             } else {
                 alert('Snap payment gateway sedang dimuat. Silakan tunggu beberapa saat.');
@@ -256,4 +255,29 @@
         });
     </script>
 @endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.MedinaAnalytics) {
+            window.MedinaAnalytics.purchase({
+                order_number: '{{ $order->order_number }}',
+                grand_total: {{ $order->grand_total }},
+                shipping_cost: {{ $order->shipping_cost }},
+                coupon_code: '{{ $order->coupon_code ?? "" }}',
+                items: [
+                    @foreach($order->items as $item)
+                    {
+                        sku: '{{ $item->variant?->sku ?? $item->id }}',
+                        product_id: '{{ $item->product_id }}',
+                        product_name: @js($item->product_name),
+                        variant_name: @js($item->variant_name),
+                        price: {{ $item->price }},
+                        quantity: {{ $item->quantity }}
+                    },
+                    @endforeach
+                ]
+            });
+        }
+    });
+</script>
 @endsection

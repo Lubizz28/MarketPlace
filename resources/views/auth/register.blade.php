@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('title', 'Pendaftaran Akun Eksklusif')
-@section('heading', 'Bergabung Bersama MedinaStyle')
+@section('heading', 'Bergabung Bersama Sulastika Jaya')
 @section('subheading', 'Dapatkan akses eksklusif ke koleksi busana muslim terbaik atau raih sukses berbisnis.')
 
 @section('content')
@@ -15,18 +15,18 @@
             <span>Akun Member (Belanja)</span>
         </button>
         <button type="button" @click="role = 'reseller'"
-            :class="role === 'reseller' ? 'bg-charcoal-950 text-cream-200 font-bold shadow-md border border-cream-400/40' : 'text-charcoal-600 font-medium hover:text-charcoal-900'"
+            :class="role === 'reseller' ? 'bg-emerald-950 text-gold-200 font-bold shadow-md border border-gold-400/40' : 'text-charcoal-600 font-medium hover:text-charcoal-900'"
             class="flex-1 py-2.5 text-xs rounded-xl transition-all flex items-center justify-center space-x-2">
-            <svg class="w-4 h-4 text-cream-300" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
+            <svg class="w-4 h-4 text-gold-300" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>
             <span>Akun Reseller (Grosir)</span>
         </button>
     </div>
 
     <!-- Informational Banner for Reseller -->
-    <div x-show="role === 'reseller'" x-cloak class="mb-5 p-4 bg-cream-50/90 border border-cream-300 rounded-2xl text-xs text-charcoal-950 space-y-1.5 shadow-xs">
+    <div x-show="role === 'reseller'" x-cloak class="mb-5 p-4 bg-gold-50/70 border border-gold-300 rounded-2xl text-xs text-charcoal-950 space-y-1.5 shadow-xs">
         <p class="font-bold flex items-center space-x-1.5">
-            <svg class="w-3.5 h-3.5 text-cream-700 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
-            <span>Keistimewaan Mitra Reseller MedinaStyle:</span>
+            <svg class="w-3.5 h-3.5 text-gold-700 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+            <span>Keistimewaan Mitra Reseller Sulastika Jaya:</span>
         </p>
         <p class="text-[11px] leading-relaxed text-charcoal-700 font-light">&bull; Potongan harga grosir langsung &amp; komisi referral otomatis.</p>
         <p class="text-[11px] leading-relaxed text-charcoal-700 font-light">&bull; Dompet saldo digital dengan penarikan dana transparan.</p>

@@ -17,9 +17,9 @@ class StorefrontController extends Controller
     ) {}
 
     /**
-     * Homepage with featured collections and categories.
+     * Homepage with featured collections, categories, and paginated products.
      */
-    public function home(): View
+    public function home(Request $request): View
     {
         $categories = Cache::remember('storefront_home_categories', 1800, function () {
             return Category::roots()->active()->withCount('products')->get();
@@ -40,7 +40,7 @@ class StorefrontController extends Controller
             ->take(8)
             ->get();
 
-        $newArrivals = Product::active()
+        $products = Product::active()
             ->with([
                 'category:id,name,slug',
                 'brand:id,name,slug',
@@ -48,10 +48,10 @@ class StorefrontController extends Controller
                 'variants.prices',
             ])
             ->latest()
-            ->take(8)
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('welcome', compact('categories', 'brands', 'featuredProducts', 'newArrivals'));
+        return view('welcome', compact('categories', 'brands', 'featuredProducts', 'products'));
     }
 
     /**

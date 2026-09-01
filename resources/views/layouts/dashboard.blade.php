@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'MedinaStyle') }} — @yield('title', 'Dashboard')</title>
+    <title>{{ config('app.name', 'Sulastika Jaya') }} — @yield('title', 'Dashboard')</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,35 +14,35 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="font-sans antialiased text-charcoal-900 h-full flex flex-col selection:bg-charcoal-950 selection:text-cream-200" x-data="{ sidebarOpen: false }">
+<body class="font-sans antialiased text-charcoal-900 h-full flex flex-col selection:bg-emerald-950 selection:text-gold-200" x-data="{ sidebarOpen: false }">
 
     <!-- Top Navigation Bar in Frosted Glass -->
-    <header class="bg-white/75 backdrop-blur-xl border-b border-cream-200/80 sticky top-0 z-30 shadow-xs">
+    <header class="bg-white/85 backdrop-blur-xl border-b border-cream-200/80 sticky top-0 z-30 shadow-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-16 sm:h-20">
                 <div class="flex items-center space-x-3">
                     <button type="button" @click="sidebarOpen = !sidebarOpen" class="md:hidden p-2 text-charcoal-600 hover:bg-cream-200/50 rounded-xl">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg>
                     </button>
-                    <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
-                        <div class="w-9 h-9 rounded-xl bg-charcoal-950 border border-cream-400/40 flex items-center justify-center text-cream-300 font-display font-bold text-lg shadow-xs group-hover:scale-105 transition-transform">
-                            <span class="text-cream-gradient">M</span>
+                    <a href="{{ route('home') }}" class="flex items-center space-x-2.5 group">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-950 border border-gold-400/50 flex items-center justify-center text-gold-300 font-display font-bold text-sm sm:text-base shadow-xs group-hover:scale-105 transition-transform">
+                            <span class="text-gold-gradient">SJ</span>
                         </div>
-                        <span class="text-xl font-display font-bold text-charcoal-950 tracking-tight">MEDINA<span class="font-serif italic text-cream-600 font-normal ml-0.5">Style</span></span>
+                        <span class="text-lg sm:text-xl font-display font-bold text-emerald-950 tracking-tight">SULASTIKA<span class="font-serif italic text-gold-700 font-normal ml-1">Jaya</span></span>
                     </a>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('home') }}" class="text-xs font-bold uppercase tracking-wider text-charcoal-600 hover:text-charcoal-950 px-4 py-2 rounded-full border border-cream-300 hover:bg-white/80 transition-colors">
-                        Lihat Katalog Toko
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <a href="{{ route('home') }}" class="text-xs font-bold uppercase tracking-wider text-emerald-800 hover:text-emerald-950 px-3.5 py-1.5 rounded-full border border-gold-300/80 hover:bg-gold-50/60 transition-colors">
+                        Katalog Toko
                     </a>
-                    <div class="flex items-center space-x-3 pl-3 border-l border-cream-200">
-                        <div class="w-9 h-9 rounded-full bg-charcoal-950 text-cream-300 font-bold text-xs flex items-center justify-center border border-cream-400/30 shadow-xs">
+                    <div class="flex items-center space-x-2.5 pl-2.5 border-l border-cream-200">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-950 text-gold-300 font-bold text-xs flex items-center justify-center border border-gold-400/30 shadow-xs">
                             {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                         </div>
                         <div class="hidden sm:flex flex-col text-left">
                             <span class="text-xs font-bold text-charcoal-900 leading-tight">{{ auth()->user()->name }}</span>
-                            <span class="text-[10px] text-cream-600 font-medium capitalize">{{ auth()->user()->role->label() }}</span>
+                            <span class="text-[10px] text-emerald-800 font-medium capitalize">{{ auth()->user()->role->label() }}</span>
                         </div>
                     </div>
                 </div>

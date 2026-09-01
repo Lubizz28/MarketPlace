@@ -26,9 +26,11 @@ class OrderController extends Controller
             ->with(['items.variant.product', 'address', 'shipment', 'payment.transactions'])
             ->firstOrFail();
 
-        // Authorization check: if authenticated and order belongs to another user
-        if (auth()->check() && $order->user_id && $order->user_id !== auth()->id() && !auth()->user()->isAdmin()) {
-            abort(403, 'Anda tidak memiliki akses ke pesanan ini.');
+        // Authorization check: if order belongs to a registered member
+        if ($order->user_id) {
+            if (!auth()->check() || ($order->user_id !== auth()->id() && !auth()->user()->isAdmin())) {
+                abort(403, 'Anda tidak memiliki akses ke pesanan ini.');
+            }
         }
 
         return view('storefront.orders.show', compact('order'));
@@ -43,9 +45,11 @@ class OrderController extends Controller
             ->with(['items.variant.product', 'address', 'shipment', 'payment'])
             ->firstOrFail();
 
-        // Authorization check: if authenticated and order belongs to another user
-        if (auth()->check() && $order->user_id && $order->user_id !== auth()->id() && !auth()->user()->isAdmin()) {
-            abort(403, 'Anda tidak memiliki akses ke faktur ini.');
+        // Authorization check: if order belongs to a registered member
+        if ($order->user_id) {
+            if (!auth()->check() || ($order->user_id !== auth()->id() && !auth()->user()->isAdmin())) {
+                abort(403, 'Anda tidak memiliki akses ke faktur ini.');
+            }
         }
 
         return view('storefront.orders.invoice', compact('order'));
@@ -73,9 +77,11 @@ class OrderController extends Controller
             ->with(['items.variant', 'payment'])
             ->firstOrFail();
 
-        // Authorization check
-        if (auth()->check() && $order->user_id && $order->user_id !== auth()->id() && !auth()->user()->isAdmin()) {
-            abort(403, 'Akses ditolak.');
+        // Authorization check: if order belongs to a registered member
+        if ($order->user_id) {
+            if (!auth()->check() || ($order->user_id !== auth()->id() && !auth()->user()->isAdmin())) {
+                abort(403, 'Akses ditolak.');
+            }
         }
 
         if (!$order->status->canBeCancelled()) {

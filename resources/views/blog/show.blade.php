@@ -1,6 +1,69 @@
 @extends('layouts.app')
 
-@section('title', $post->title . ' — Blog MedinaStyle')
+@section('title', $post->title . ' — Jurnal MedinaStyle')
+@section('meta_description', Str::limit(strip_tags($post->excerpt ?? $post->body), 155))
+@section('meta_keywords', 'busana muslim, fashion muslimah, abaya, gamis, medinastyle')
+@section('canonical_url', route('blog.show', $post->slug))
+@section('og_type', 'article')
+@section('og_image', $post->thumbnail_path ? asset($post->thumbnail_path) : asset('images/icons/icon.svg'))
+
+@section('schema')
+@php
+    $blogPostSchema = [
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Beranda',
+                        'item' => url('/'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => 'Jurnal Fashion',
+                        'item' => route('blog.index'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 3,
+                        'name' => $post->title,
+                        'item' => route('blog.show', $post->slug),
+                    ],
+                ],
+            ],
+            [
+                '@type' => 'BlogPosting',
+                'headline' => $post->title,
+                'image' => [
+                    $post->thumbnail_path ? asset($post->thumbnail_path) : asset('images/icons/icon.svg'),
+                ],
+                'datePublished' => optional($post->published_at)->toAtomString() ?? optional($post->created_at)->toAtomString(),
+                'dateModified' => optional($post->updated_at)->toAtomString() ?? now()->toAtomString(),
+                'author' => [
+                    '@type' => 'Person',
+                    'name' => $post->author?->name ?? 'Tim MedinaStyle',
+                ],
+                'publisher' => [
+                    '@type' => 'Organization',
+                    'name' => 'MedinaStyle',
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => asset('images/icons/icon.svg'),
+                    ],
+                ],
+                'description' => Str::limit(strip_tags($post->excerpt ?? $post->body), 200),
+            ],
+        ],
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($blogPostSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+</script>
+@endsection
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">

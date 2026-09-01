@@ -1,6 +1,47 @@
 @extends('layouts.app')
 
 @section('title', 'Blog & Panduan Busana Muslimah Syar\'i — MedinaStyle')
+@section('meta_description', 'Temukan inspirasi busana muslimah syari, tren abaya dan gamis terkini, tips pemilihan bahan hijab sutra jacquard, serta panduan modest fashion elegan.')
+@section('meta_keywords', 'blog busana muslim, panduan hijab syari, abaya modern, tips fashion muslimah, medinastyle')
+@section('canonical_url', route('blog.index'))
+@section('og_type', 'website')
+@section('og_image', asset('images/icons/icon.svg'))
+
+@section('schema')
+@php
+    $blogIndexSchema = [
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Beranda',
+                        'item' => url('/'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => 'Jurnal & Artikel',
+                        'item' => route('blog.index'),
+                    ],
+                ],
+            ],
+            [
+                '@type' => 'Blog',
+                'name' => 'Jurnal & Panduan Busana Muslimah MedinaStyle',
+                'url' => route('blog.index'),
+                'description' => 'Inspirasi busana muslimah syari, ulasan kain impor, dan tren busana modest haute couture.',
+            ],
+        ],
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($blogIndexSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+</script>
+@endsection
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">

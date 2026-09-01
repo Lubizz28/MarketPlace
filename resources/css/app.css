@@ -11,102 +11,189 @@
     --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     --font-mono: 'JetBrains Mono', monospace;
 
-    /* Palette: Velvet Charcoal / Abu-Abu Gelap Mewah */
-    --color-charcoal-950: #101216;
-    --color-charcoal-900: #181b22;
-    --color-charcoal-850: #20242d;
-    --color-charcoal-800: #2c323e;
-    --color-charcoal-700: #424a5b;
-    --color-charcoal-600: #5c667d;
-    --color-charcoal-500: #7c87a0;
-    --color-charcoal-400: #a2acc3;
-    --color-charcoal-300: #cad1e1;
-    --color-charcoal-200: #e4e7f0;
-    --color-charcoal-100: #f1f3f8;
-    --color-charcoal-50: #f8f9fc;
+    /* Primary Heritage: Royal Emerald / Hijau Zamrud Bangsawan Sulastika */
+    --color-emerald-950: #061e17;
+    --color-emerald-900: #0c2d24;
+    --color-emerald-850: #103b2f;
+    --color-emerald-800: #14493b;
+    --color-emerald-700: #1b5e4c;
+    --color-emerald-600: #257d66;
+    --color-emerald-500: #329f83;
+    --color-emerald-400: #4ec4a5;
+    --color-emerald-300: #82ddc7;
+    --color-emerald-200: #bbf0e2;
+    --color-emerald-100: #dcf8f1;
+    --color-emerald-50: #f0fbf8;
+
+    /* Secondary Accent: Champagne Gold & Warm Amber / Kilau Emas Jaya */
+    --color-gold-950: #2c1e08;
+    --color-gold-900: #4a340f;
+    --color-gold-800: #6f4f18;
+    --color-gold-700: #976d23;
+    --color-gold-600: #b88636;
+    --color-gold-500: #d4a359;
+    --color-gold-400: #eec477;
+    --color-gold-300: #f6dc9f;
+    --color-gold-200: #faecc7;
+    --color-gold-100: #fcf6e4;
+    --color-gold-50: #fefbf4;
+
+    /* Palette: Velvet Obsidian & Charcoal / Abu-Abu Gelap Mewah */
+    --color-charcoal-950: #0c1210;
+    --color-charcoal-900: #131a17;
+    --color-charcoal-850: #1a2420;
+    --color-charcoal-800: #222e29;
+    --color-charcoal-700: #34443e;
+    --color-charcoal-600: #4c6058;
+    --color-charcoal-500: #688077;
+    --color-charcoal-400: #8ea39b;
+    --color-charcoal-300: #b9cac4;
+    --color-charcoal-200: #dce6e2;
+    --color-charcoal-100: #eff4f2;
+    --color-charcoal-50: #f7faf9;
 
     /* Palette: Cashmere Linen & Warm Cream / Krem Sutra Nyaman */
-    --color-cream-950: #2e261d;
-    --color-cream-900: #473a2c;
-    --color-cream-800: #665541;
-    --color-cream-700: #887258;
-    --color-cream-600: #aa9172;
-    --color-cream-500: #c4ad90;
-    --color-cream-400: #d9c7af;
-    --color-cream-300: #e8dcce;
-    --color-cream-200: #f2ebe1;
-    --color-cream-100: #f7f3ec;
-    --color-cream-50: #faf8f4;
+    --color-cream-950: #27211a;
+    --color-cream-900: #42372c;
+    --color-cream-800: #5f5041;
+    --color-cream-700: #806c59;
+    --color-cream-600: #a18a73;
+    --color-cream-500: #beaa94;
+    --color-cream-400: #d5c4b1;
+    --color-cream-300: #e7dcce;
+    --color-cream-200: #f3ece3;
+    --color-cream-100: #f8f4ee;
+    --color-cream-50: #fcfaf6;
 
-    /* Satin Gold / Bronze Shimmer */
-    --color-bronze-500: #c2a676;
-    --color-bronze-600: #a88d5e;
+    /* Satin Bronze & Gold */
+    --color-bronze-500: #c29f68;
+    --color-bronze-600: #a4824e;
 }
 
-/* Perfected Multi-Layered Frosted Glass */
+/* Perfected Multi-Layered Frosted Glass for Sulastika Jaya */
 .glass-surface {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 10px 30px -4px rgba(24, 27, 34, 0.04), 0 2px 6px -1px rgba(24, 27, 34, 0.02), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 30px -4px rgba(12, 18, 16, 0.04), 0 2px 6px -1px rgba(12, 18, 16, 0.02), inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(242, 235, 225, 0.85);
-    box-shadow: 0 12px 32px -4px rgba(24, 27, 34, 0.04), 0 4px 12px -2px rgba(24, 27, 34, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(243, 236, 227, 0.95);
+    box-shadow: 0 12px 32px -4px rgba(12, 18, 16, 0.04), 0 4px 12px -2px rgba(12, 18, 16, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .glass-dark {
-    background: linear-gradient(145deg, rgba(28, 32, 40, 0.92) 0%, rgba(16, 18, 22, 0.96) 100%);
+    background: linear-gradient(145deg, rgba(12, 30, 23, 0.96) 0%, rgba(6, 18, 14, 0.98) 100%);
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid rgba(232, 220, 206, 0.15);
-    box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(212, 163, 89, 0.25);
+    box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(246, 220, 159, 0.2);
 }
 
 .glass-pill {
-    background: rgba(247, 243, 236, 0.8);
+    background: rgba(248, 244, 238, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(217, 199, 175, 0.5);
+    border: 1px solid rgba(213, 196, 177, 0.55);
 }
 
 .glass-bottom-bar {
-    background: rgba(16, 18, 22, 0.9);
+    background: rgba(12, 30, 23, 0.95);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(232, 220, 206, 0.2);
-    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(212, 163, 89, 0.3);
+    box-shadow: 0 -10px 30px -5px rgba(0, 0, 0, 0.35);
 }
 
-/* Refined Gradients & Glows */
-.text-cream-gradient {
-    background: linear-gradient(135deg, #faf8f4 0%, #e8dcce 50%, #c4ad90 100%);
+/* Sulastika Jaya Refined Gradients & Glows */
+.text-gold-gradient {
+    background: linear-gradient(135deg, #fefbf4 0%, #f6dc9f 35%, #d4a359 70%, #b88636 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.bg-charcoal-luxury {
-    background: radial-gradient(circle at 85% 15%, #282e3a 0%, #181b22 55%, #101216 100%);
+.text-emerald-gradient {
+    background: linear-gradient(135deg, #061e17 0%, #14493b 50%, #257d66 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.bg-cream-btn {
-    background: linear-gradient(135deg, #e8dcce 0%, #cbb396 50%, #af9677 100%);
+.bg-emerald-luxury {
+    background: radial-gradient(circle at 85% 15%, #14493b 0%, #0c2d24 55%, #061e17 100%);
 }
 
-/* Subtle Natural Linen Lattice Pattern */
-.bg-cream-pattern {
-    background-image: radial-gradient(rgba(170, 145, 114, 0.18) 1px, transparent 0);
-    background-size: 28px 28px;
+.bg-gold-btn {
+    background: linear-gradient(135deg, #f6dc9f 0%, #d4a359 50%, #b88636 100%);
+}
+
+.bg-emerald-btn {
+    background: linear-gradient(135deg, #1b5e4c 0%, #14493b 50%, #0c2d24 100%);
+}
+
+/* Subtle Heritage Arabesque / Lattice Pattern */
+.bg-sulastika-pattern {
+    background-image: radial-gradient(rgba(184, 134, 54, 0.16) 1px, transparent 0);
+    background-size: 24px 24px;
 }
 
 /* Smooth Transitions & Focus */
 .transition-smooth {
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Compact & Luxury Product Card Utilities */
+.aspect-luxury-portrait {
+    aspect-ratio: 4 / 5;
+    background-color: #f7f4ee;
+}
+
+.luxury-image-container {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #fbf9f5 0%, #f3ede2 100%);
+    box-shadow: inset 0 0 0 1px rgba(184, 134, 54, 0.08);
+}
+
+.luxury-image-container img {
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s ease;
+}
+
+.group:hover .luxury-image-container img {
+    transform: scale(1.06);
+}
+
+.product-card-hover {
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.32s ease;
+    border: 1px solid rgba(220, 205, 185, 0.65);
+    background: #ffffff;
+    box-shadow: 0 4px 16px -2px rgba(12, 30, 23, 0.03), 0 1px 3px rgba(12, 30, 23, 0.02);
+}
+
+.product-card-hover:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 163, 89, 0.65);
+    box-shadow: 0 20px 40px -10px rgba(12, 30, 23, 0.12), 0 6px 16px -4px rgba(212, 163, 89, 0.15);
+}
+
+.gold-badge {
+    background: rgba(12, 45, 36, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #f6dc9f;
+    border: 1px solid rgba(212, 163, 89, 0.4);
+    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.25);
+}
+
+.reseller-badge {
+    background: linear-gradient(135deg, rgba(246, 220, 159, 0.95) 0%, rgba(212, 163, 89, 0.95) 100%);
+    color: #061e17;
+    box-shadow: 0 2px 6px rgba(184, 134, 54, 0.25);
+    font-weight: 700;
 }
 
 /* Custom Refined Scrollbar */
@@ -115,12 +202,12 @@
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #f7f3ec;
+    background: #f8f4ee;
 }
 ::-webkit-scrollbar-thumb {
-    background: #d9c7af;
+    background: #d5c4b1;
     border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #aa9172;
+    background: #a18a73;
 }

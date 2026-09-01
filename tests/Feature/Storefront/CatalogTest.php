@@ -21,9 +21,11 @@ class CatalogTest extends TestCase
         $response = $this->get(route('home'));
 
         $response->assertStatus(200);
-        $response->assertSee('MEDINA');
-        $response->assertSee('Haute Couture');
-        $response->assertSeeText('Kategori Pilihan Terbaik');
+        $response->assertSee('SULASTIKA');
+        $response->assertSee('Sulastika Jaya');
+        $response->assertSeeText('Kategori Pilihan Sulastika');
+        $response->assertSee('scrollToTop');
+        $response->assertSee('koleksi-busana');
     }
 
     public function test_catalog_can_be_rendered_with_products(): void
